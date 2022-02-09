@@ -67,7 +67,7 @@ namespace GXPEngine
                 Enemy enemy = new Enemy();
                 enemies.Last()[spot] = enemy;
                 AddChild(enemy);
-                enemy.x = spot * enemyHorizontalSeparation;
+                enemy.x = (spot - enemies.Last().Length/2f) * enemyHorizontalSeparation + enemyHorizontalSeparation/2f;
                 enemy.AddChild(new Tween(Tween.Property.y, 0, -enemyVerticalSeparation, 1, Tween.Curves.EaseOut));
 
 

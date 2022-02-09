@@ -23,12 +23,7 @@ public class MyGame : Game
 
 		enemySpawner = new EnemySpawner();
 		AddChild(enemySpawner);
-		enemySpawner.SetXY(game.width * 0.3f, game.height);
-
-		/*
-		Sprite c = new Sprite("circle.png");
-		AddChild(c);
-		c.AddChild(new Tween(Tween.Property.alpha, c.alpha, 0f, 10f, Tween.Curves.Linear));*/
+		enemySpawner.SetXY(game.width / 2, game.height);
 		
 		player = new Player();
 		AddChild(player);

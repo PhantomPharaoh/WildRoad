@@ -26,6 +26,7 @@ namespace GXPEngine
 
             x += inputDirection * steerSpeed * delta;
 
+            x = Mathf.Clamp(x, game.width*0.3f, game.width*0.7f);
         }
 
     }
