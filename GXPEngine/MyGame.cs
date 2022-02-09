@@ -7,6 +7,7 @@ public class MyGame : Game
 
 	AdvancedSprite road;
 	Player player;
+	EnemySpawner enemySpawner;
 
 	public MyGame() : base(1280, 720, false)
 	{
@@ -19,6 +20,10 @@ public class MyGame : Game
 				game.width*0.3f, game.height
 			});
 		AddChild(road);
+
+		enemySpawner = new EnemySpawner();
+		AddChild(enemySpawner);
+		enemySpawner.SetXY(game.width/2, game.height);
 
 		/*
 		Sprite c = new Sprite("circle.png");

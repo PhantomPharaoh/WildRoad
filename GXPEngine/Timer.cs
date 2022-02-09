@@ -40,7 +40,7 @@ class Timer : GameObject
 
 	public void SetWaitTime(float waitTime)
     {
-		this.waitTime = waitTime;
+		this.waitTime = waitTime * 1000;
     }
 
 	public void Start()

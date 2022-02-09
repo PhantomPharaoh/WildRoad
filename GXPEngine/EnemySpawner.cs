@@ -13,13 +13,15 @@ namespace GXPEngine
         Timer spawnTimer;
         Random random;
 
-        const float enemySeparation = 40f;
+        const float enemyHorizontalSeparation = 100f;
+        const float enemyVerticalSeparation = 100f;
 
         public EnemySpawner()
         {
             random = new Random();
             spawnTimer = new Timer(1, true);
-            enemies.Append(new Enemy[4]);
+            AddChild(spawnTimer);
+            enemies.Add(new Enemy[4]);
         }
 
 
@@ -29,28 +31,49 @@ namespace GXPEngine
             if (spawnTimer.finishedThisFrame)
             {
                 //removing empty rows
+                /*this doesn't work, so the removing of empty rows will have to be elsewhere
                 foreach (Enemy[] row in enemies)//let's hope this works
                 {
                     if (IsArrayEmpty(row)) enemies.Remove(row);
-                }
+                }*/
 
-                if (enemies.Count == 0) enemies.Append(new Enemy[4]);
+                if (enemies.Count == 0) enemies.Add(new Enemy[4]);
                 //if all rows were empty and were removed, we add in a new empty one
 
-                if (IsArrayFull(enemies.Last())) enemies.Append(new Enemy[4]);
-                //if the last row if full, we add in a new empty one
+                if (IsArrayFull(enemies.Last()))
+                {
+                    foreach (Enemy[] row in enemies)//all rows go up
+                    {
+                        for (int i = 0; i < row.Length; i++)
+                        {
+                            if (row[i] != null)
+                            {
+                                row[i].AddChild(new Tween(
+                                    Tween.Property.y,
+                                    row[i].y,
+                                    row[i].y - enemyVerticalSeparation,
+                                    1,
+                                    Tween.Curves.EaseOut));
+                            }
+                        }
+                    }
+
+
+                    enemies.Add(new Enemy[4]);//if the last row if full, we add in a new empty one
+                }
+                
 
                 int spot = GetEmptySpot(enemies.Last());
                 Enemy enemy = new Enemy();
                 enemies.Last()[spot] = enemy;
                 AddChild(enemy);
-                //enemy.x = 
-                //enemy.AddChild(new Tween(Tween.Property.y));
+                enemy.x = spot * enemyHorizontalSeparation;
+                enemy.AddChild(new Tween(Tween.Property.y, 0, -enemyVerticalSeparation, 1, Tween.Curves.EaseOut));
 
 
 
 
-                spawnTimer.SetWaitTime(random.Next(2, 10));
+                spawnTimer.SetWaitTime(random.Next(1, 3));
                 spawnTimer.Start();
             }
 
