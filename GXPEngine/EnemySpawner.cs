@@ -73,7 +73,7 @@ namespace GXPEngine
 
 
 
-                spawnTimer.SetWaitTime(random.Next(1, 3));
+                spawnTimer.SetWaitTime(random.Next(2, 10));
                 spawnTimer.Start();
             }
 
