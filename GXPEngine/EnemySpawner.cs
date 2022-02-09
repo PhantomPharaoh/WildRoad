@@ -13,7 +13,7 @@ namespace GXPEngine
         Timer spawnTimer;
         Random random;
 
-        const float enemySeparation = 50f;
+        const float enemySeparation = 40f;
 
         public EnemySpawner()
         {
