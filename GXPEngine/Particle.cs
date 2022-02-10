@@ -43,23 +43,24 @@ namespace GXPEngine
         public void Update()
         {
             float delta = Time.deltaTime / 1000f;
-
+            
             velocity += gravity * delta * 60;
-            velocity *= 1 - velocityDamp * delta * 60;
-
+            //velocity = MathUtils.Lerp();
+            
             x += velocity.x * delta * 60;
             y += velocity.y * delta * 60;
-
-            rotationSpeed *= 1 - rotationDamp;
+            
+            //rotationSpeed *= 1 - rotationDamp;
             rotation += rotationSpeed * delta * 60;
-
-            scaling *= 1 - scalingDamp * delta * 60;
-            scale *= scaling * delta * 60;
+            
+            //scaling *= 1 - scalingDamp * delta * 60;
+            scale += scaling * delta * 60;
             scale = Mathf.Max(scale, 0);
-
-            alpha *= alphaModulation * delta * 60;
+            
+            alpha += alphaModulation * delta * 60;
             alpha = Mathf.Clamp(alpha, 0, 1);
-
+            Console.WriteLine(alpha);
+            
             if (timer.finishedThisFrame) LateDestroy();
 
         }

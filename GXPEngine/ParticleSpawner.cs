@@ -13,8 +13,7 @@ namespace GXPEngine
         float moveDirectionAngle = 0;
         float minMoveSpeed = 0;
         float maxMoveSpeed = 0;
-        float minSpreading = 0;
-        float maxSpreading = 0;
+        float spreading = 0;
         float velocityDamp = 0;//between 0 and 1
 
         Vector2 gravity = Vector2.ZERO;
@@ -80,14 +79,13 @@ namespace GXPEngine
 
         public ParticleSpawner ConfigureMovement(
             float moveDirectionAngle, float minMoveSpeed,
-            float maxMoveSpeed, float minSpreading,
-            float maxSpreading, float velocityDamp)
+            float maxMoveSpeed, float spreading,
+            float velocityDamp)
         {
             this.moveDirectionAngle = moveDirectionAngle;
             this.minMoveSpeed = minMoveSpeed;
             this.maxMoveSpeed = maxMoveSpeed;
-            this.minSpreading = minSpreading;
-            this.maxSpreading = maxSpreading;
+            this.spreading = spreading;
             this.velocityDamp = velocityDamp;
             return this;
         }
@@ -157,19 +155,19 @@ namespace GXPEngine
 
             Particle particle = new Particle(//passing the particle it's properties
                 images[imageIndex],
-                minLifeTime + maxLifeTime * (float)random.NextDouble(),
-                Vector2.UP.Rotated(minInitialAngle + maxInitialAngle * (float)random.NextDouble(), true),
+                MathUtils.Map((float)random.NextDouble(), 0, 1, minLifeTime, maxLifeTime),
+                Vector2.UP.Rotated(moveDirectionAngle, true).Rotated(MathUtils.Map((float)random.NextDouble(), 0, 1, -spreading, spreading)),
                 gravity,
                 velocityDamp,
-                minRotationSpeed + maxRotationSpeed * (float)random.NextDouble(),
+                MathUtils.Map((float)random.NextDouble(), 0, 1, minRotationSpeed, maxRotationSpeed),
                 rotationDamp,
-                minScaling + maxScaling * (float)random.NextDouble(),
+                MathUtils.Map((float)random.NextDouble(), 0, 1, minScaling, maxScaling),
                 scalingDamp,
                 alphaModulation);
 
             particle.SetOrigin(particle.width/2, particle.height / 2);
-            particle.rotation = minInitialAngle + maxInitialAngle * (float)random.NextDouble();
-            particle.scale = maxInitialScale + maxInitialScale * (float)random.NextDouble();
+            particle.rotation = MathUtils.Map((float)random.NextDouble(), 0, 1, minInitialAngle, maxInitialAngle);
+            particle.scale = MathUtils.Map((float)random.NextDouble(), 0, 1, minInitialScale, maxInitialScale);
             particle.alpha = initialAlpha;
 
             AddChild(particle);
