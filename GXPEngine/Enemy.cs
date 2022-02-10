@@ -9,10 +9,10 @@ namespace GXPEngine
     internal class Enemy : Sprite
     {
 
-        public Enemy() : base("car_1.png", true, true)
+        public Enemy() : base("car_2.png", true, true)
         {
             SetOrigin(this.width / 2, this.height / 2);
-            SetScaleXY(1.5f, 1.5f);
+            SetScaleXY(1.3f, 1.3f);
         }
 
 

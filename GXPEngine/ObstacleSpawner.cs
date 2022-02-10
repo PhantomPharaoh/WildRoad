@@ -34,7 +34,6 @@ namespace GXPEngine
 
                 spawnTimer.SetWaitTime(random.Next(2, 5));
                 spawnTimer.Start();
-                Console.WriteLine(obstacle.x);
             }
 
         }
