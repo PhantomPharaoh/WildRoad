@@ -11,9 +11,10 @@ namespace GXPEngine
 
         const float steerSpeed = 150f;
 
-        public Player() : base("square.png")
+        public Player() : base("car_1.png", true, true)
         {
             SetOrigin(this.width/2, this.height/2);
+            SetScaleXY(1.5f, 1.5f);
         }
 
         public void Update()
@@ -26,7 +27,7 @@ namespace GXPEngine
 
             x += inputDirection * steerSpeed * delta;
 
-            x = Mathf.Clamp(x, game.width*0.3f, game.width*0.7f);
+            x = Mathf.Clamp(x, game.width*0.4f, game.width*0.6f);
         }
 
     }
