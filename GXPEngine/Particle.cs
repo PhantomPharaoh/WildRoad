@@ -23,7 +23,7 @@ namespace GXPEngine
         public Particle(
             string imagePath,float lifeTime,
             Vector2 velocity, Vector2 gravity,
-            float velocityDamp, float rotationSpeed,
+            float velocityDamp, float rotationSpeed, 
             float rotationDamp, float scaling,
             float scalingDamp, float alphaModulation) : base(imagePath, true, false)
         {
@@ -59,7 +59,7 @@ namespace GXPEngine
 
             alpha *= alphaModulation * delta * 60;
             alpha = Mathf.Clamp(alpha, 0, 1);
-            
+
             if (timer.finishedThisFrame) LateDestroy();
 
         }

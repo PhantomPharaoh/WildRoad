@@ -32,14 +32,15 @@ public class MyGame : Game
 		player = new Player();
 		AddChild(player);
 		player.SetXY(game.width / 2, game.height / 2);
-
+		/*
 		ParticleSpawner test = new ParticleSpawner(
 			new string[] { "circle.png" })
-			.ConfigureMovement(0, 1, 1, 0, 0, 0);
+			.ConfigureMovement(0, 1, 1, 0, 0, 0)
+			.ConfigureLifeTime(1, 10);
 
 		AddChild(test);
 		test.SetXY(game.width / 2, game.height / 2);
-		test.Emit();
+		test.Emit();*/
 	}
 
 

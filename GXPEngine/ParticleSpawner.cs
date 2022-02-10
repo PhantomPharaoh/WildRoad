@@ -57,6 +57,7 @@ namespace GXPEngine
             this.minTimeBetween = minTimeBetween;
             this.maxTimeBetween = maxTimeBetween;
             spawnTimer = new Timer(minTimeBetween, false);
+            AddChild(spawnTimer);
             random = new Random();
         }
 
@@ -135,12 +136,15 @@ namespace GXPEngine
         public void Update()
         {
 
-            if (spawnTimer.finishedThisFrame && amountCreated < amount)
+            if (spawnTimer.finishedThisFrame)
             {
-                CreateParticle();
-                amountCreated++;
-                spawnTimer.SetWaitTime(minTimeBetween + maxTimeBetween * (float)random.NextDouble());
-                spawnTimer.Start();
+                if (amountCreated < amount || amount == 0)
+                {
+                    CreateParticle();
+                    amountCreated++;
+                    spawnTimer.SetWaitTime(minTimeBetween + maxTimeBetween * (float)random.NextDouble());
+                    spawnTimer.Start();
+                }
             }
 
 
@@ -163,6 +167,7 @@ namespace GXPEngine
                 scalingDamp,
                 alphaModulation);
 
+            particle.SetOrigin(particle.width/2, particle.height / 2);
             particle.rotation = minInitialAngle + maxInitialAngle * (float)random.NextDouble();
             particle.scale = maxInitialScale + maxInitialScale * (float)random.NextDouble();
             particle.alpha = initialAlpha;
