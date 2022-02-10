@@ -10,6 +10,7 @@ namespace GXPEngine
     {
 
         public static int difficulty = 0;
+        public static float scrollSpeed = 1f;
 
 
     }

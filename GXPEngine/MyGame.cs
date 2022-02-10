@@ -8,6 +8,7 @@ public class MyGame : Game
 	AdvancedSprite road;
 	Player player;
 	EnemySpawner enemySpawner;
+	ObstacleSpawner obstacleSpawner;
 
 	public MyGame() : base(1280, 720, false)
 	{
@@ -24,6 +25,9 @@ public class MyGame : Game
 		enemySpawner = new EnemySpawner();
 		AddChild(enemySpawner);
 		enemySpawner.SetXY(game.width / 2, game.height);
+
+		obstacleSpawner = new ObstacleSpawner();
+		AddChild(obstacleSpawner);
 		
 		player = new Player();
 		AddChild(player);
@@ -35,7 +39,7 @@ public class MyGame : Game
 	{
 		float delta = Time.deltaTime / 1000f;
 
-		road.AddOffset(0, -delta);
+		road.AddOffset(0, -Globals.scrollSpeed * delta);
 	}
 
 	static void Main()
