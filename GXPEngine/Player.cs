@@ -10,6 +10,7 @@ namespace GXPEngine
     {
 
         const float steerSpeed = 150f;
+        int playerHealth = 100;
 
         public Player() : base("car_1.png", true, true)
         {
@@ -28,6 +29,14 @@ namespace GXPEngine
             x += inputDirection * steerSpeed * delta;
 
             x = Mathf.Clamp(x, game.width*0.4f, game.width*0.6f);
+        }
+
+        public void OnCollision(GameObject other)
+        {
+            if (other is Bullet)
+            {
+
+            }
         }
 
     }

@@ -33,6 +33,9 @@ namespace GXPEngine
         float initialAlpha = 1;
         float alphaModulation = 0;
 
+        float areaExtendsX = 0;
+        float areaExtendsY = 0;
+
         Timer spawnTimer;
         Random random;
 
@@ -130,6 +133,13 @@ namespace GXPEngine
             this.maxLifeTime = maxLifeTime;
             return this;
         }
+        public ParticleSpawner ConfigureSpawnArea(
+            float areaExtendsX, float areaExtendsY)
+        {
+            this.areaExtendsX = areaExtendsX;
+            this.areaExtendsY = areaExtendsY;
+            return this;
+        }
 
         public void Update()
         {
@@ -169,6 +179,8 @@ namespace GXPEngine
             particle.rotation = MathUtils.Map((float)random.NextDouble(), 0, 1, minInitialAngle, maxInitialAngle);
             particle.scale = MathUtils.Map((float)random.NextDouble(), 0, 1, minInitialScale, maxInitialScale);
             particle.alpha = initialAlpha;
+            particle.x += MathUtils.Map((float)random.NextDouble(), 0, 1, -areaExtendsX, areaExtendsX);
+            particle.y += MathUtils.Map((float)random.NextDouble(), 0, 1, -areaExtendsY, areaExtendsY);
 
             AddChild(particle);
         }
