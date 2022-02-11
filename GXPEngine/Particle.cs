@@ -18,7 +18,8 @@ namespace GXPEngine
         float scalingDamp;
         float alphaModulation;
 
-        Timer timer;
+        float spawnTime;
+        float lifeTime;
 
         public Particle(
             string imagePath,float lifeTime,
@@ -36,8 +37,8 @@ namespace GXPEngine
             this.scalingDamp = scalingDamp;
             this.alphaModulation = alphaModulation;
 
-            timer = new Timer(lifeTime);
-            AddChild(timer);
+            this.lifeTime = lifeTime * 1000f;
+            this.spawnTime = Time.now;
         }
 
         public void Update()
@@ -61,8 +62,7 @@ namespace GXPEngine
             alpha = Mathf.Clamp(alpha, 0, 1);
             Console.WriteLine(alpha);
             
-            if (timer.finishedThisFrame) LateDestroy();
-
+            if (Time.now - spawnTime > lifeTime) LateDestroy();
         }
 
 

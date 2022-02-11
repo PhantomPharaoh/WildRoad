@@ -156,7 +156,7 @@ namespace GXPEngine
             Particle particle = new Particle(//passing the particle it's properties
                 images[imageIndex],
                 MathUtils.Map((float)random.NextDouble(), 0, 1, minLifeTime, maxLifeTime),
-                Vector2.UP.Rotated(moveDirectionAngle, true).Rotated(MathUtils.Map((float)random.NextDouble(), 0, 1, -spreading, spreading)),
+                Vector2.UP.Rotated(moveDirectionAngle, true).Rotated(MathUtils.Map((float)random.NextDouble(), 0, 1, -spreading, spreading)) * MathUtils.Map((float)random.NextDouble(), 0, 1, minMoveSpeed, maxMoveSpeed),
                 gravity,
                 velocityDamp,
                 MathUtils.Map((float)random.NextDouble(), 0, 1, minRotationSpeed, maxRotationSpeed),

@@ -1,6 +1,7 @@
 using System;
 using GXPEngine;
 using System.Drawing;
+using GXPEngine.Core;
 
 public class MyGame : Game
 {
@@ -9,6 +10,8 @@ public class MyGame : Game
 	Player player;
 	EnemySpawner enemySpawner;
 	ObstacleSpawner obstacleSpawner;
+	EasyDraw stats;
+	ParticleSpawner test;
 
 	public MyGame() : base(1280, 720, false)
 	{
@@ -32,14 +35,21 @@ public class MyGame : Game
 		player = new Player();
 		AddChild(player);
 		player.SetXY(game.width / 2, game.height / 2);
-		
-		ParticleSpawner test = new ParticleSpawner(
-			new string[] { "circle.png" })
-			.ConfigureMovement(0, 1000, 1000, 0, 0);
+
+		stats = new EasyDraw(game.width, game.height, false);
+		AddChild(stats);
+
+		test = new ParticleSpawner(
+			new string[] { "circle.png", "triangle.png" }, 20, 0, 0)
+			.ConfigureMovement(0, 2, 10, 180, 0)
+			.ConfigureLifeTime(5, 5)
+			.ConfigureGravity(Vector2.UP * 0.1f)
+			.ConfigureAlpha(1, -0.005f)
+			.ConfigureScaling(0.01f, 0.01f, 0, 1, 1)
+			.ConfigureRotation(0, 5, 0, 0, 360);
 
 		AddChild(test);
 		test.SetXY(game.width / 2, game.height / 2);
-		test.Emit();
 	}
 
 
@@ -48,6 +58,11 @@ public class MyGame : Game
 		float delta = Time.deltaTime / 1000f;
 
 		road.AddOffset(0, -Globals.scrollSpeed * delta);
+
+		stats.ClearTransparent();
+		stats.Text($"FPS:{currentFps}\n{GetDiagnostics()}");
+
+		if (Input.GetKeyDown(Key.SPACE)) test.Emit();
 	}
 
 	static void Main()
