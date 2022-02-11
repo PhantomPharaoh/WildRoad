@@ -90,7 +90,7 @@
     <Compile Include="Obstacle.cs" />
     <Compile Include="ObstacleSpawner.cs" />
     <Compile Include="Particle.cs" />
-    <Compile Include="ParticleSpawner.cs" />
+    <Compile Include="ParticleEmitter.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="Tween.cs" />

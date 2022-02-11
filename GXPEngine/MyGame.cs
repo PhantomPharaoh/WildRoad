@@ -11,7 +11,7 @@ public class MyGame : Game
 	EnemySpawner enemySpawner;
 	ObstacleSpawner obstacleSpawner;
 	EasyDraw stats;
-	ParticleSpawner test;
+	ParticleEmitter test;
 
 	public MyGame() : base(1280, 720, false)
 	{
@@ -39,14 +39,15 @@ public class MyGame : Game
 		stats = new EasyDraw(game.width, game.height, false);
 		AddChild(stats);
 
-		test = new ParticleSpawner(
+		test = new ParticleEmitter(
 			new string[] { "circle.png", "triangle.png" }, 20, 0, 0)
-			.ConfigureMovement(0, 2, 10, 180, 0)
+			.ConfigureMovement(0, 2, 10, 180, -0.1f)
 			.ConfigureLifeTime(5, 5)
 			.ConfigureGravity(Vector2.UP * 0.1f)
 			.ConfigureAlpha(1, -0.005f)
 			.ConfigureScaling(0.01f, 0.01f, 0, 1, 1)
-			.ConfigureRotation(0, 5, 0, 0, 360);
+			.ConfigureRotation(0, 5, -0.1f, 0, 360)
+			.ConfigureSpawnArea(10, 10);
 
 		AddChild(test);
 		test.SetXY(game.width / 2, game.height / 2);

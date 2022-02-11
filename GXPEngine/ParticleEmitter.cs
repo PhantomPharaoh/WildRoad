@@ -7,26 +7,26 @@ using GXPEngine.Core;
 
 namespace GXPEngine
 {
-    internal class ParticleSpawner : GameObject
+    internal class ParticleEmitter : GameObject
     {
 
         float moveDirectionAngle = 0;
         float minMoveSpeed = 0;
         float maxMoveSpeed = 0;
         float spreading = 0;
-        float velocityDamp = 0;//between 0 and 1
+        float velocityAcceleration = 0;
 
         Vector2 gravity = Vector2.ZERO;
 
         float minRotationSpeed = 0;
         float maxRotationSpeed = 0;
-        float rotationDamp = 0;
+        float rotationAcceleration = 0;
         float minInitialAngle = 0;
         float maxInitialAngle = 0;
 
         float minScaling = 0;
         float maxScaling = 0;
-        float scalingDamp = 0;
+        float scalingAcceleration = 0;
         float minInitialScale = 1;
         float maxInitialScale = 1;
 
@@ -52,7 +52,7 @@ namespace GXPEngine
         /// <param name="minTimeBetween">minimum time between particles (shouldn't be 0 while amount is 0)</param>
         /// <param name="maxTimeBetween">maximum time between particles</param>
         /// <returns></returns>
-        public ParticleSpawner(string[] images, int amount = 0, float minTimeBetween = 1, float maxTimeBetween = 1)
+        public ParticleEmitter(string[] images, int amount = 0, float minTimeBetween = 1, float maxTimeBetween = 1)
         {
             this.images = images;
             this.amount = amount;
@@ -80,60 +80,60 @@ namespace GXPEngine
             }
         }
 
-        public ParticleSpawner ConfigureMovement(
+        public ParticleEmitter ConfigureMovement(
             float moveDirectionAngle, float minMoveSpeed,
             float maxMoveSpeed, float spreading,
-            float velocityDamp)
+            float velocityAcceleration)
         {
             this.moveDirectionAngle = moveDirectionAngle;
             this.minMoveSpeed = minMoveSpeed;
             this.maxMoveSpeed = maxMoveSpeed;
             this.spreading = spreading;
-            this.velocityDamp = velocityDamp;
+            this.velocityAcceleration = velocityAcceleration;
             return this;
         }
-        public ParticleSpawner ConfigureGravity(Vector2 gravity)
+        public ParticleEmitter ConfigureGravity(Vector2 gravity)
         {
             this.gravity = gravity;
             return this;
         }
-        public ParticleSpawner ConfigureScaling(
+        public ParticleEmitter ConfigureScaling(
             float minScaling, float maxScaling,
-            float scalingDamp, float minInitialScale, float maxInitialScale)
+            float scalingAcceleration, float minInitialScale, float maxInitialScale)
         {
             this.minScaling = minScaling;
             this.maxScaling = maxScaling;
-            this.scalingDamp = scalingDamp;
+            this.scalingAcceleration = scalingAcceleration;
             this.minInitialScale = minInitialScale;
             this.maxInitialScale = maxInitialScale;
             return this;
         }
-        public ParticleSpawner ConfigureRotation(
+        public ParticleEmitter ConfigureRotation(
             float minRotationSpeed, float maxRotationSpeed,
-            float rotationDamp, float minInitialAngle, float maxInitialAngle)
+            float rotationAcceleration, float minInitialAngle, float maxInitialAngle)
         {
             this.minRotationSpeed = minRotationSpeed;
             this.maxRotationSpeed = maxRotationSpeed;
-            this.rotationDamp = rotationDamp;
+            this.rotationAcceleration = rotationAcceleration;
             this.minInitialAngle = minInitialAngle;
             this.maxInitialAngle = maxInitialAngle;
             return this;
         }
-        public ParticleSpawner ConfigureAlpha(
+        public ParticleEmitter ConfigureAlpha(
             float initialAlpha, float alphaModulation)
         {
             this.initialAlpha = initialAlpha;
             this.alphaModulation = alphaModulation;
             return this;
         }
-        public ParticleSpawner ConfigureLifeTime(
+        public ParticleEmitter ConfigureLifeTime(
             float minLifeTime, float maxLifeTime)
         {
             this.minLifeTime = minLifeTime;
             this.maxLifeTime = maxLifeTime;
             return this;
         }
-        public ParticleSpawner ConfigureSpawnArea(
+        public ParticleEmitter ConfigureSpawnArea(
             float areaExtendsX, float areaExtendsY)
         {
             this.areaExtendsX = areaExtendsX;
@@ -168,11 +168,11 @@ namespace GXPEngine
                 MathUtils.Map((float)random.NextDouble(), 0, 1, minLifeTime, maxLifeTime),
                 Vector2.UP.Rotated(moveDirectionAngle, true).Rotated(MathUtils.Map((float)random.NextDouble(), 0, 1, -spreading, spreading)) * MathUtils.Map((float)random.NextDouble(), 0, 1, minMoveSpeed, maxMoveSpeed),
                 gravity,
-                velocityDamp,
+                velocityAcceleration,
                 MathUtils.Map((float)random.NextDouble(), 0, 1, minRotationSpeed, maxRotationSpeed),
-                rotationDamp,
+                rotationAcceleration,
                 MathUtils.Map((float)random.NextDouble(), 0, 1, minScaling, maxScaling),
-                scalingDamp,
+                scalingAcceleration,
                 alphaModulation);
 
             particle.SetOrigin(particle.width/2, particle.height / 2);

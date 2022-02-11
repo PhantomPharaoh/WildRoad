@@ -11,11 +11,11 @@ namespace GXPEngine
     {
         Vector2 velocity;
         Vector2 gravity;
-        float velocityDamp;//between 0 and 1
+        float velocityAcceleration;
         float rotationSpeed;
-        float rotationDamp;
+        float rotationAcceleration;
         float scaling;
-        float scalingDamp;
+        float scalingAcceleration;
         float alphaModulation;
 
         float spawnTime;
@@ -24,17 +24,17 @@ namespace GXPEngine
         public Particle(
             string imagePath,float lifeTime,
             Vector2 velocity, Vector2 gravity,
-            float velocityDamp, float rotationSpeed, 
-            float rotationDamp, float scaling,
-            float scalingDamp, float alphaModulation) : base(imagePath, true, false)
+            float velocityAcceleration, float rotationSpeed, 
+            float rotationAcceleration, float scaling,
+            float scalingAcceleration, float alphaModulation) : base(imagePath, true, false)
         {
             this.velocity = velocity;
             this.gravity = gravity;
             this.rotationSpeed = rotationSpeed;
-            this.velocityDamp = velocityDamp;
-            this.rotationDamp = rotationDamp;
+            this.velocityAcceleration = velocityAcceleration;
+            this.rotationAcceleration = rotationAcceleration;
             this.scaling = scaling;
-            this.scalingDamp = scalingDamp;
+            this.scalingAcceleration = scalingAcceleration;
             this.alphaModulation = alphaModulation;
 
             this.lifeTime = lifeTime * 1000f;
@@ -46,21 +46,20 @@ namespace GXPEngine
             float delta = Time.deltaTime / 1000f;
             
             velocity += gravity * delta * 60;
-            //velocity = MathUtils.Lerp();
+            velocity += velocity.Normalized() * velocityAcceleration * delta * 60;
             
             x += velocity.x * delta * 60;
             y += velocity.y * delta * 60;
             
-            //rotationSpeed *= 1 - rotationDamp;
+            rotationSpeed += rotationAcceleration * delta * 60;
             rotation += rotationSpeed * delta * 60;
             
-            //scaling *= 1 - scalingDamp * delta * 60;
+            scaling += scalingAcceleration * delta * 60;
             scale += scaling * delta * 60;
             scale = Mathf.Max(scale, 0);
             
             alpha += alphaModulation * delta * 60;
             alpha = Mathf.Clamp(alpha, 0, 1);
-            Console.WriteLine(alpha);
             
             if (Time.now - spawnTime > lifeTime) LateDestroy();
         }
