@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GXPEngine.Core;
 
 namespace GXPEngine
 {
-    internal class Player : Sprite
+    internal class Player : Car
     {
 
         const float steerSpeed = 150f;
+
         int playerHealth = 100;
 
-        public Player() : base("car_1.png", true, true)
+        public Player() : base("car_1.png", "square.png")
         {
-            SetOrigin(this.width/2, this.height/2);
             SetScaleXY(1.5f, 1.5f);
         }
 
@@ -29,6 +30,8 @@ namespace GXPEngine
             x += inputDirection * steerSpeed * delta;
 
             x = Mathf.Clamp(x, game.width*0.4f, game.width*0.6f);
+
+            Shake(delta);
         }
 
         public void OnCollision(GameObject other)

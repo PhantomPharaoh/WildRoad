@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AdvancedSprite.cs" />
     <Compile Include="Bullet.cs" />
+    <Compile Include="Car.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemySpawner.cs" />
     <Compile Include="Globals.cs" />
