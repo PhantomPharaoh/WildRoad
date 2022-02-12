@@ -10,7 +10,7 @@ namespace GXPEngine
     internal class Car : Sprite
     {
         Sprite visibleCar;
-        public float shakiness = 1;
+        public float shakiness = 1f;
         public float stiffness = 0.2f;
         Random random;
 
@@ -34,6 +34,9 @@ namespace GXPEngine
 
             visibleCar.x = MathUtils.Lerp(visibleCar.x, 0, stiffness * delta * 60);
             visibleCar.y = MathUtils.Lerp(visibleCar.y, 0, stiffness * delta * 60);
+
+            visibleCar.rotation += MathUtils.Map((float)random.NextDouble(), 0, 1, -appliedShake, appliedShake);
+            visibleCar.rotation = MathUtils.Lerp(visibleCar.rotation, 0, stiffness * delta * 60);
         }
 
     }
