@@ -17,7 +17,7 @@ namespace GXPEngine
 
         Random random = new Random();
 
-        public Player() : base("car_1.png", "square.png")
+        public Player() : base("player_sheet.png", "square.png", "player_flash.png", 3, 1, 3)
         {
             SetScaleXY(1.5f, 1.5f);
         }
@@ -35,8 +35,11 @@ namespace GXPEngine
             x = Mathf.Clamp(x, game.width*0.4f, game.width*0.6f);
 
             Shake(delta);
+            visibleCar.Animate();
 
             if (Input.GetKeyDown(Key.DOWN)) Shoot();
+
+            if (Input.GetKeyDown(Key.UP)) HitAnimation();
 
         }
 

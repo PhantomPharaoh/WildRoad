@@ -9,21 +9,27 @@ namespace GXPEngine
 {
     internal class Car : Sprite
     {
-        Sprite visibleCar;
+        protected AnimationSprite visibleCar;
         public float shakiness = 1f;
         public float stiffness = 0.2f;
         Random random;
+        Sprite hitIndicator;
 
-        public Car(string texturePath, string hitboxPath) : base(hitboxPath, true, true)
+        public Car(string texturePath, string hitboxPath, string hitIdicatorPath, int cols, int rows, int frames) : base(hitboxPath, true, true)
         {
             SetOrigin(this.width/2, this.height/2);
             alpha = 0.5f;
 
             random = new Random();
 
-            visibleCar = new Sprite(texturePath, true, false);
+            visibleCar = new AnimationSprite(texturePath, cols, rows, frames, true, false);
             AddChild(visibleCar);
             visibleCar.SetOrigin(visibleCar.width / 2, visibleCar.height / 2);
+
+            hitIndicator = new Sprite(hitIdicatorPath, true, false);
+            visibleCar.AddChild(hitIndicator);
+            hitIndicator.SetOrigin(hitIndicator.width / 2, hitIndicator.height / 2);
+            hitIndicator.alpha = 0;
         }
 
         protected void Shake(float delta)
@@ -38,5 +44,11 @@ namespace GXPEngine
             visibleCar.rotation += MathUtils.Map((float)random.NextDouble(), 0, 1, -appliedShake, appliedShake);
             visibleCar.rotation = MathUtils.Lerp(visibleCar.rotation, 0, stiffness * delta * 60);
         }
+
+        protected void HitAnimation()
+        {
+            hitIndicator.AddChild(new Tween(Tween.Property.alpha, 1, 0, 0.3f, Tween.Curves.EaseOut));
+        }
+
     }
 }

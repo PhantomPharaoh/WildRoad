@@ -13,7 +13,7 @@ namespace GXPEngine
         
         int health = 100;
 
-        public Enemy() : base("car_2.png", "square.png")
+        public Enemy() : base("car_2.png", "square.png", "player_flash.png", 1, 1, 1)
         {
             SetOrigin(this.width / 2, this.height / 2);
             SetScaleXY(1.3f, 1.3f);

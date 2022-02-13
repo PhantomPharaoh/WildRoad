@@ -37,8 +37,8 @@ namespace GXPEngine
                     if (IsArrayEmpty(row)) enemies.Remove(row);
                 }*/
 
-                if (enemies.Count == 0) enemies.Add(new Enemy[4]);
                 //if all rows were empty and were removed, we add in a new empty one
+                if (enemies.Count == 0) enemies.Add(new Enemy[4]);
 
                 if (IsArrayFull(enemies.Last()))
                 {

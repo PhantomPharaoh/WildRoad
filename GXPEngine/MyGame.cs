@@ -16,12 +16,12 @@ public class MyGame : Game
 
 	public MyGame() : base(1280, 720, false)
 	{
-		road = new AdvancedSprite("road.png",
+		road = new AdvancedSprite("road3.png",
 			new float[8]{
-				game.width*0.3f, 0,
-				game.width*0.7f, 0,
-				game.width*0.7f, game.height,
-				game.width*0.3f, game.height
+				0, 0,
+				game.width, 0,
+				game.width, game.height * 1.5f,
+				0, game.height * 1.5f
 			});
 		AddChild(road);
 
