@@ -38,6 +38,5 @@ namespace GXPEngine
             visibleCar.rotation += MathUtils.Map((float)random.NextDouble(), 0, 1, -appliedShake, appliedShake);
             visibleCar.rotation = MathUtils.Lerp(visibleCar.rotation, 0, stiffness * delta * 60);
         }
-
     }
 }

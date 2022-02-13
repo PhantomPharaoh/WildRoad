@@ -12,10 +12,10 @@ public class MyGame : Game
 	ObstacleSpawner obstacleSpawner;
 	EasyDraw stats;
 	ParticleEmitter test;
+	ParticleEmitter dustCoulds;
 
 	public MyGame() : base(1280, 720, false)
 	{
-	
 		road = new AdvancedSprite("road.png",
 			new float[8]{
 				game.width*0.3f, 0,
@@ -51,6 +51,19 @@ public class MyGame : Game
 
 		AddChild(test);
 		test.SetXY(game.width / 2, game.height / 2);
+
+		dustCoulds = new ParticleEmitter(
+			new string[] { "smoke_07.png" }, 0, 0.1f, 0.5f)
+			.ConfigureLifeTime(5, 5)
+			.ConfigureMovement(0, 10, 10, 0, 0)
+			.ConfigureAlpha(0.5f, 0)
+			.ConfigureSpawnArea(200, 0)
+			.ConfigureScaling(0, 0, 0, 0.5f, 1)
+			.ConfigureRotation(0, 0, 0, 0, 360);
+
+		AddChild(dustCoulds);
+		dustCoulds.SetXY(game.width / 2, -100);
+		//dustCoulds.Emit();
 	}
 
 
