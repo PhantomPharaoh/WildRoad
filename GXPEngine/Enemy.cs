@@ -24,6 +24,7 @@ namespace GXPEngine
         public void Update()
         {
             Shake(Time.deltaTime / 1000f);
+            HitAnimation();
         }
 
         public void OnCollision(GameObject other)
@@ -32,6 +33,7 @@ namespace GXPEngine
             {
                 if (!(other as Bullet).isEnemyBullet)
                 {
+                    doHitAnimation = true;
                     other.LateDestroy();
                     health -= 10;
                     if (health <= 0) 

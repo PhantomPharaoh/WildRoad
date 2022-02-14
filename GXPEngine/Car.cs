@@ -48,7 +48,11 @@ namespace GXPEngine
 
         protected void HitAnimation()//call this every frame
         {
-            hitIndicator.AddChild(new Tween(Tween.Property.alpha, 1, 0, 0.3f, Tween.Curves.EaseOut));
+            if (doHitAnimation)
+            {
+                hitIndicator.AddChild(new Tween(Tween.Property.alpha, 1, 0, 0.3f, Tween.Curves.EaseOut));
+                doHitAnimation = false;
+            }
         }
 
     }

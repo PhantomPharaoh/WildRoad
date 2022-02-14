@@ -39,8 +39,7 @@ namespace GXPEngine
 
             if (Input.GetKeyDown(Key.DOWN)) Shoot();
 
-            if (Input.GetKeyDown(Key.UP)) HitAnimation();
-
+            HitAnimation();
         }
 
         public void OnCollision(GameObject other)
@@ -50,13 +49,13 @@ namespace GXPEngine
                 if ((other as Bullet).isEnemyBullet)
                 {
                     other.LateDestroy();
-                    //HitAnimation();
+                    doHitAnimation = true;
                 }
             }
 
             if (other is Obstacle) 
             {
-                //HitAnimation();
+                doHitAnimation = true;
             }
         }
 
