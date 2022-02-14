@@ -64,6 +64,7 @@ public class MyGame : Game
 		AddChild(dustCoulds);
 		dustCoulds.SetXY(game.width / 2, -100);
 		//dustCoulds.Emit();
+
 	}
 
 
@@ -77,6 +78,7 @@ public class MyGame : Game
 		stats.Text($"FPS:{currentFps}\n{GetDiagnostics()}");
 
 		if (Input.GetKeyDown(Key.SPACE)) test.Emit();
+
 	}
 
 	static void Main()

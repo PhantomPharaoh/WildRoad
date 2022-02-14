@@ -35,6 +35,8 @@ namespace GXPEngine
             y += velocity.y * delta * 60;
 
             rotation = -velocity.AngleTo(Vector2.DOWN, true);
+
+            if (y > game.height + 10) LateDestroy();
         }
 
     }

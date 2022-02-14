@@ -13,7 +13,7 @@ namespace GXPEngine
         const float steerSpeed = 150f;
         const float bulletSpread = 5f;
 
-        int playerHealth = 100;
+        public int playerHealth = 100;
 
         Random random = new Random();
 
@@ -47,7 +47,16 @@ namespace GXPEngine
         {
             if (other is Bullet)
             {
-                if ((other as Bullet).isEnemyBullet) other.LateDestroy();
+                if ((other as Bullet).isEnemyBullet)
+                {
+                    other.LateDestroy();
+                    //HitAnimation();
+                }
+            }
+
+            if (other is Obstacle) 
+            {
+                //HitAnimation();
             }
         }
 

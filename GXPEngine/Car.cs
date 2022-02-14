@@ -10,6 +10,7 @@ namespace GXPEngine
     internal class Car : Sprite
     {
         protected AnimationSprite visibleCar;
+        protected bool doHitAnimation = false;
         public float shakiness = 1f;
         public float stiffness = 0.2f;
         Random random;
@@ -32,7 +33,7 @@ namespace GXPEngine
             hitIndicator.alpha = 0;
         }
 
-        protected void Shake(float delta)
+        protected void Shake(float delta)//call this every frame
         {
             float appliedShake = shakiness * delta * 60;
             visibleCar.x += MathUtils.Map((float)random.NextDouble(), 0, 1, -appliedShake, appliedShake);
@@ -45,7 +46,7 @@ namespace GXPEngine
             visibleCar.rotation = MathUtils.Lerp(visibleCar.rotation, 0, stiffness * delta * 60);
         }
 
-        protected void HitAnimation()
+        protected void HitAnimation()//call this every frame
         {
             hitIndicator.AddChild(new Tween(Tween.Property.alpha, 1, 0, 0.3f, Tween.Curves.EaseOut));
         }

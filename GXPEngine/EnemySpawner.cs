@@ -11,6 +11,7 @@ namespace GXPEngine
 
         List<Enemy[]> enemies = new List<Enemy[]>();
         Timer spawnTimer;
+        Timer shootTimer;
         Random random;
 
         const float enemyHorizontalSeparation = 70f;
@@ -21,22 +22,40 @@ namespace GXPEngine
             random = new Random();
             spawnTimer = new Timer(1, true);
             AddChild(spawnTimer);
-            enemies.Add(new Enemy[4]);
+            shootTimer = new Timer(3, true);
+            AddChild(shootTimer);
         }
 
 
         public void Update()
         {
+            foreach (Enemy[] row in enemies)//remove destroyed enemies
+            {
+                for (int i = 0; i < row.Length; i++)
+                {
+                    if (row[i] != null && row[i].isDestroyed)
+                    {
+                        row[i] = null;
+                    }
+                }
+            }
+
+            if (enemies.Count > 0)//remove empty rows
+            {
+                bool containsEnemy = false;
+                for (int i = 0; i < enemies[0].Length; i++)
+                {
+                    if (enemies[0][i] != null)
+                    {
+                        containsEnemy = true;
+                    }
+                }
+                if (!containsEnemy) enemies.RemoveAt(0);
+            }
+
 
             if (spawnTimer.finishedThisFrame)
             {
-                //removing empty rows
-                /*this doesn't work, so the removing of empty rows will have to be elsewhere
-                foreach (Enemy[] row in enemies)//let's hope this works
-                {
-                    if (IsArrayEmpty(row)) enemies.Remove(row);
-                }*/
-
                 //if all rows were empty and were removed, we add in a new empty one
                 if (enemies.Count == 0) enemies.Add(new Enemy[4]);
 
@@ -71,12 +90,30 @@ namespace GXPEngine
                 enemy.AddChild(new Tween(Tween.Property.y, 0, -enemyVerticalSeparation, 1, Tween.Curves.EaseOut));
 
 
-
-
                 spawnTimer.SetWaitTime(random.Next(2, 10));
                 spawnTimer.Start();
             }
 
+            if (shootTimer.finishedThisFrame)
+            {
+                if (enemies.Count > 0)
+                {
+                    int shooterInex = -1;
+                    while (shooterInex == -1)
+                    {
+                        int randomNumber = random.Next(0, enemies[0].Length);
+                        if (enemies[0][randomNumber] != null) shooterInex = randomNumber;
+                    }
+
+                    enemies[0][shooterInex].Shoot();
+
+                }
+
+
+
+                shootTimer.SetWaitTime(random.Next(1, 4));
+                shootTimer.Start();
+            }
 
         }
 

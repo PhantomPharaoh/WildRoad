@@ -10,7 +10,9 @@ namespace GXPEngine
     internal class Enemy : Car
     {
         Vector2 shootDirection = Vector2.DOWN;
-        
+
+        public bool isDestroyed = false;
+
         int health = 100;
 
         public Enemy() : base("car_2.png", "square.png", "player_flash.png", 1, 1, 1)
@@ -32,7 +34,11 @@ namespace GXPEngine
                 {
                     other.LateDestroy();
                     health -= 10;
-                    if (health <= 0) LateDestroy();
+                    if (health <= 0) 
+                    {
+                        isDestroyed = true;
+                        LateDestroy();
+                    }
                 }
             }
         }
@@ -41,6 +47,7 @@ namespace GXPEngine
         {
             Bullet bullet = new Bullet(true, shootDirection * Globals.bulletSpeed);
             parent.AddChild(bullet);
+            bullet.SetXY(this.x ,this.y);
         }
 
 
