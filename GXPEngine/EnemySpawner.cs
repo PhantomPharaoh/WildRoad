@@ -111,7 +111,7 @@ namespace GXPEngine
                         }
                     }
 
-                    enemies[rowIndex][shooterInex].Shoot();
+                    enemies[rowIndex][shooterInex].StartShooting();
 
                 }
 
