@@ -14,6 +14,7 @@ public class MyGame : Game
 	ParticleEmitter test;
 	ParticleEmitter dustCoulds;
 	Sprite playerHeatlhBar;
+	Sprite playerUnderHealthBar;
 
 	public MyGame() : base(1366, 768, true)
 	{
@@ -66,10 +67,16 @@ public class MyGame : Game
 		dustCoulds.SetXY(game.width / 2, -100);
 		//dustCoulds.Emit();
 
+		playerUnderHealthBar = new Sprite("underHealthBar.png", false, false);
+		AddChild(playerUnderHealthBar);
+		playerUnderHealthBar.SetXY(100, 400);
+		playerUnderHealthBar.rotation = 180;
+
 		playerHeatlhBar = new Sprite("healthBar.png", false, false);
 		AddChild(playerHeatlhBar);
 		playerHeatlhBar.SetXY(100, 400);
 		playerHeatlhBar.rotation = 180;
+
 	}
 
 
@@ -85,6 +92,7 @@ public class MyGame : Game
 		if (Input.GetKeyDown(Key.SPACE)) test.Emit();
 
 		playerHeatlhBar.SetScaleXY(10, MathUtils.Map(player.playerHealth, 0, 100, 0, 70));
+		playerUnderHealthBar.SetScaleXY(playerHeatlhBar.scaleX, MathUtils.Lerp(playerUnderHealthBar.scaleY, playerHeatlhBar.scaleY, 0.05f * delta * 60));
 	}
 
 	static void Main()
