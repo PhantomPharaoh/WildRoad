@@ -9,16 +9,23 @@ namespace GXPEngine
 {
     internal class Enemy : Car
     {
-        Vector2 shootDirection = Vector2.DOWN;
+        protected Vector2 shootDirection = Vector2.DOWN;
 
         public bool isDestroyed = false;
 
-        int health = 100;
+        protected int health = 100;
+        protected float shootSpread = 1;
+        protected float timeBetweenShots = 0.2f;
+        protected int amountOfShots = 3;
+
+        Timer shotDelayTimer;
 
         public Enemy() : base("car_2.png", "square.png", "player_flash.png", 1, 1, 1)
         {
             SetOrigin(this.width / 2, this.height / 2);
             SetScaleXY(1.3f, 1.3f);
+            shotDelayTimer = new Timer(timeBetweenShots, false);
+            AddChild(shotDelayTimer);
         }
 
         public void Update()
@@ -26,6 +33,12 @@ namespace GXPEngine
             Shake(Time.deltaTime / 1000f);
             HitAnimation();
             EmitSparks();
+
+            if (shotDelayTimer.finishedThisFrame)
+            {
+                Shoot();
+            }
+
         }
 
         public void OnCollision(GameObject other)
@@ -62,13 +75,23 @@ namespace GXPEngine
             }
         }
 
-        public void Shoot()
+        void Shoot()
         {
             Bullet bullet = new Bullet(true, shootDirection * Globals.bulletSpeed);
             parent.AddChild(bullet);
-            bullet.SetXY(this.x ,this.y);
+            bullet.SetXY(this.x, this.y);
+
+            shootDirection = shootDirection.Rotated(shootSpread, true);
         }
 
+        public void StartShooting()
+        {
+            shootDirection = Vector2.DOWN;
+            shootDirection = shootDirection.Rotated(-shootSpread * amountOfShots * 0.5f, true);
+
+            shotDelayTimer.SetWaitTime(timeBetweenShots);
+            shotDelayTimer.Start();
+        }
 
     }
 }
