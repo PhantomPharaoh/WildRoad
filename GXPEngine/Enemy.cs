@@ -25,6 +25,7 @@ namespace GXPEngine
         {
             Shake(Time.deltaTime / 1000f);
             HitAnimation();
+            EmitSparks();
         }
 
         public void OnCollision(GameObject other)
@@ -34,6 +35,8 @@ namespace GXPEngine
                 if (!(other as Bullet).isEnemyBullet)
                 {
                     doHitAnimation = true;
+                    //doEmitSparks = true;
+                    //sparksPosition = new Vector2(other.x - this.x, other.y - this.y);
                     other.LateDestroy();
                     health -= 10;
                     if (health <= 0) 
@@ -41,6 +44,20 @@ namespace GXPEngine
                         isDestroyed = true;
                         LateDestroy();
                     }
+                }
+            }
+            if (other is Obstacle)
+            {
+                if (!(other as Obstacle).collidedWith.Contains(this))
+                {
+                    doHitAnimation = true;
+                    health -= 5;
+                    if (health <= 0)
+                    {
+                        isDestroyed = true;
+                        LateDestroy();
+                    }
+                    (other as Obstacle).collidedWith.Add(this);
                 }
             }
         }

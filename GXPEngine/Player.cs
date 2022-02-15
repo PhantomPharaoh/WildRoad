@@ -53,16 +53,17 @@ namespace GXPEngine
                     doHitAnimation = true;
                     sparksPosition = new Vector2(other.parent.x + other.x - this.x, other.parent.y + other.y - this.y);
                     doEmitSparks = true;
+                    playerHealth -= 10;
                 }
             }
 
             if (other is Obstacle) 
             {
-
                 if (!(other as Obstacle).collidedWith.Contains(this))
                 {
                     doHitAnimation = true;
                     (other as Obstacle).collidedWith.Add(this);
+                    playerHealth -= 10;
                 }
             }
         }

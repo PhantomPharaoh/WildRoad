@@ -13,8 +13,9 @@ public class MyGame : Game
 	EasyDraw stats;
 	ParticleEmitter test;
 	ParticleEmitter dustCoulds;
+	Sprite playerHeatlhBar;
 
-	public MyGame() : base(1280, 720, false)
+	public MyGame() : base(1366, 768, true)
 	{
 		road = new AdvancedSprite("road3.png",
 			new float[8]{
@@ -65,6 +66,10 @@ public class MyGame : Game
 		dustCoulds.SetXY(game.width / 2, -100);
 		//dustCoulds.Emit();
 
+		playerHeatlhBar = new Sprite("healthBar.png", false, false);
+		AddChild(playerHeatlhBar);
+		playerHeatlhBar.SetXY(100, 400);
+		playerHeatlhBar.rotation = 180;
 	}
 
 
@@ -79,6 +84,7 @@ public class MyGame : Game
 
 		if (Input.GetKeyDown(Key.SPACE)) test.Emit();
 
+		playerHeatlhBar.SetScaleXY(10, MathUtils.Map(player.playerHealth, 0, 100, 0, 70));
 	}
 
 	static void Main()
