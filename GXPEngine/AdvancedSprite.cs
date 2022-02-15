@@ -11,7 +11,7 @@ public class AdvancedSprite : Sprite
 
 	public AdvancedSprite(string filename, float[] area) : base(filename, false){
 		texture.wrap = true;
-
+		
 		this.area = area;
 	}
 
@@ -46,6 +46,11 @@ public class AdvancedSprite : Sprite
 	protected override void RenderSelf(GLContext glContext){
 		_texture.Bind();
 
+		glContext.SetColor(
+			(byte)((_color >> 16) & 0xFF),
+			(byte)((_color >> 8) & 0xFF),
+			(byte)(_color & 0xFF),
+			(byte)(_alpha * 0xFF));
 		glContext.DrawQuad(area, _uvs);
 
 		_texture.Unbind();

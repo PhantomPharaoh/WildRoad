@@ -70,13 +70,22 @@ public class MyGame : Game
 
 		playerUnderHealthBar = new Sprite("underHealthBar.png", false, false);
 		AddChild(playerUnderHealthBar);
-		playerUnderHealthBar.SetXY(100, 400);
+		playerUnderHealthBar.SetXY(75, 717);
 		playerUnderHealthBar.rotation = 180;
 
 		playerHeatlhBar = new Sprite("healthBar.png", false, false);
 		AddChild(playerHeatlhBar);
-		playerHeatlhBar.SetXY(100, 400);
+		playerHeatlhBar.SetXY(75, 717);
 		playerHeatlhBar.rotation = 180;
+
+		AdvancedSprite dashboard = new AdvancedSprite("dashboard.png",
+			new float[8]{
+				0, game.height * 0.65f,
+				game.width * 0.35f, game.height * 0.65f,
+				game.width * 0.35f, game.height,
+				0, game.height
+			});
+		AddChild(dashboard);
 
 	}
 
@@ -92,7 +101,7 @@ public class MyGame : Game
 
 		if (Input.GetKeyDown(Key.SPACE)) test.Emit();
 
-		playerHeatlhBar.SetScaleXY(10, MathUtils.Map(player.playerHealth, 0, 100, 0, 70));
+		playerHeatlhBar.SetScaleXY(15, MathUtils.Map(player.playerHealth, 0, 100, 0, 85));
 		playerUnderHealthBar.SetScaleXY(playerHeatlhBar.scaleX, MathUtils.Lerp(playerUnderHealthBar.scaleY, playerHeatlhBar.scaleY, 0.05f * delta * 60));
 	}
 

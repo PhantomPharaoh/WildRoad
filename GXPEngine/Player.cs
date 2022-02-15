@@ -17,7 +17,7 @@ namespace GXPEngine
 
         Random random = new Random();
 
-        public Player() : base("player_sheet.png", "square.png", "player_flash.png", 3, 1, 3)
+        public Player() : base("player_sheet.png", "player_hitbox.png", "player_flash.png", 3, 1, 3)
         {
             SetScaleXY(1.5f, 1.5f);
         }

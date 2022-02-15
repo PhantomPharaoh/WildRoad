@@ -11,9 +11,9 @@ namespace GXPEngine
 		protected Texture2D _texture;
 		protected Rectangle _bounds;
 		protected float[] _uvs;
-		
-		private uint _color = 0xFFFFFF;
-		private float _alpha = 1.0f;
+
+		protected uint _color = 0xFFFFFF;
+		protected float _alpha = 1.0f;
 		
 		protected bool _mirrorX = false;
 		protected bool _mirrorY = false;
