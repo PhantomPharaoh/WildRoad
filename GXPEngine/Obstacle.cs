@@ -9,6 +9,8 @@ namespace GXPEngine
     internal class Obstacle : Sprite
     {
 
+        public List<GameObject> collidedWith = new List<GameObject>();
+
         public Obstacle() : base("circle.png")
         {
             SetOrigin(this.width/2, this.height/2);

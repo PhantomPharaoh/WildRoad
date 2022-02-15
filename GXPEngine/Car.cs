@@ -47,7 +47,7 @@ namespace GXPEngine
 
         protected void Shake(float delta)//call this every frame
         {
-            float appliedShake = shakiness * delta * 60;
+            float appliedShake = shakiness;// * delta * 60;
             visibleCar.x += MathUtils.Map((float)random.NextDouble(), 0, 1, -appliedShake, appliedShake);
             visibleCar.y += MathUtils.Map((float)random.NextDouble(), 0, 1, -appliedShake, appliedShake);
 

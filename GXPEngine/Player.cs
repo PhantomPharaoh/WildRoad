@@ -58,7 +58,12 @@ namespace GXPEngine
 
             if (other is Obstacle) 
             {
-                doHitAnimation = true;
+
+                if (!(other as Obstacle).collidedWith.Contains(this))
+                {
+                    doHitAnimation = true;
+                    (other as Obstacle).collidedWith.Add(this);
+                }
             }
         }
 

@@ -24,14 +24,14 @@ public class MyGame : Game
 				0, game.height * 1.5f
 			});
 		AddChild(road);
+		
+		obstacleSpawner = new ObstacleSpawner();
+		AddChild(obstacleSpawner);
 
 		enemySpawner = new EnemySpawner();
 		AddChild(enemySpawner);
 		enemySpawner.SetXY(game.width / 2, game.height);
 
-		obstacleSpawner = new ObstacleSpawner();
-		AddChild(obstacleSpawner);
-		
 		player = new Player();
 		AddChild(player);
 		player.SetXY(game.width / 2, game.height / 2);
