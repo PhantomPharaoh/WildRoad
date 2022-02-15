@@ -15,7 +15,7 @@ namespace GXPEngine
         protected Vector2 sparksPosition = Vector2.ZERO;
         public float shakiness = 1f;
         public float stiffness = 0.2f;
-        Random random;
+        protected Random random;
         Sprite hitIndicator;
         ParticleEmitter sparks;
 

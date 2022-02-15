@@ -14,10 +14,11 @@ namespace GXPEngine
         public bool isDestroyed = false;
 
         protected int health = 100;
-        protected float shootSpread = 1;
+        protected float shootSpread = 5;
         protected float timeBetweenShots = 0.2f;
         protected int amountOfShots = 3;
 
+        int spreadDirection = 1;//-1 or 1
         int amountShot = 0;
 
         Timer shotDelayTimer;
@@ -88,14 +89,16 @@ namespace GXPEngine
             parent.AddChild(bullet);
             bullet.SetXY(this.x, this.y);
 
-            shootDirection = shootDirection.Rotated(shootSpread, true);
+            shootDirection = shootDirection.Rotated(shootSpread * spreadDirection, true);
             amountShot++;
         }
 
         public void StartShooting()
         {
+            spreadDirection = random.Next(0, 2) == 0 ? 1 : -1;
+
             shootDirection = Vector2.DOWN;
-            shootDirection = shootDirection.Rotated(-shootSpread * amountOfShots * 0.5f, true);
+            shootDirection = shootDirection.Rotated(shootSpread * amountOfShots * 0.5f * -spreadDirection, true);
             amountShot = 0;
 
             shotDelayTimer.SetWaitTime(timeBetweenShots);
