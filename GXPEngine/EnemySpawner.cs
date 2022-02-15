@@ -99,13 +99,19 @@ namespace GXPEngine
                 if (enemies.Count > 0)
                 {
                     int shooterInex = -1;
+                    int rowIndex = 0;
                     while (shooterInex == -1)
                     {
-                        int randomNumber = random.Next(0, enemies[0].Length);
-                        if (enemies[0][randomNumber] != null) shooterInex = randomNumber;
+                        int randomCol = random.Next(0, enemies[0].Length);
+                        int randomRow = random.Next(0, enemies.Count);
+                        if (enemies[randomRow][randomCol] != null)
+                        {
+                            shooterInex = randomCol;
+                            rowIndex = randomRow;
+                        }
                     }
 
-                    enemies[0][shooterInex].Shoot();
+                    enemies[rowIndex][shooterInex].Shoot();
 
                 }
 

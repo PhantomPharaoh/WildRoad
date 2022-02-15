@@ -11,10 +11,13 @@ namespace GXPEngine
     {
         protected AnimationSprite visibleCar;
         protected bool doHitAnimation = false;
+        protected bool doEmitSparks = false;
+        protected Vector2 sparksPosition = Vector2.ZERO;
         public float shakiness = 1f;
         public float stiffness = 0.2f;
         Random random;
         Sprite hitIndicator;
+        ParticleEmitter sparks;
 
         public Car(string texturePath, string hitboxPath, string hitIdicatorPath, int cols, int rows, int frames) : base(hitboxPath, true, true)
         {
@@ -31,6 +34,15 @@ namespace GXPEngine
             visibleCar.AddChild(hitIndicator);
             hitIndicator.SetOrigin(hitIndicator.width / 2, hitIndicator.height / 2);
             hitIndicator.alpha = 0;
+
+            sparks = new ParticleEmitter(
+                new string[] { "spark.png" }, 20, 0, 0)
+                .ConfigureGravity(Vector2.UP * 0.1f)
+                .ConfigureMovement(0, 1, 2, 180, 0)
+                .ConfigureAlpha(1, -0.01f)
+                .ConfigureScaling(0, 0, 0, 0.3f, 0.3f)
+                .ConfigureLifeTime(2f, 2f);
+            AddChild(sparks);
         }
 
         protected void Shake(float delta)//call this every frame
@@ -52,6 +64,17 @@ namespace GXPEngine
             {
                 hitIndicator.AddChild(new Tween(Tween.Property.alpha, 1, 0, 0.3f, Tween.Curves.EaseOut));
                 doHitAnimation = false;
+            }
+        }
+
+        protected void EmitSparks()
+        {
+            if (doEmitSparks)
+            {
+                sparks.x = sparksPosition.x;
+                sparks.y = sparksPosition.y;
+                sparks.Emit();
+                doEmitSparks = false;
             }
         }
 

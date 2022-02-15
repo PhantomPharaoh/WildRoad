@@ -40,6 +40,7 @@ namespace GXPEngine
             if (Input.GetKeyDown(Key.DOWN)) Shoot();
 
             HitAnimation();
+            EmitSparks();
         }
 
         public void OnCollision(GameObject other)
@@ -50,6 +51,8 @@ namespace GXPEngine
                 {
                     other.LateDestroy();
                     doHitAnimation = true;
+                    sparksPosition = new Vector2(other.parent.x + other.x - this.x, other.parent.y + other.y - this.y);
+                    doEmitSparks = true;
                 }
             }
 

@@ -53,12 +53,12 @@ public class MyGame : Game
 		test.SetXY(game.width / 2, game.height / 2);
 
 		dustCoulds = new ParticleEmitter(
-			new string[] { "smoke_07.png" }, 0, 0.1f, 0.5f)
+			new string[] { "dust_6.png", "dust_7.png", "dust_8.png", "dust_9.png", "dust_10.png", "dust_11.png" }, 0, 0.1f, 0.5f)
 			.ConfigureLifeTime(5, 5)
 			.ConfigureMovement(0, 10, 10, 0, 0)
 			.ConfigureAlpha(0.5f, 0)
 			.ConfigureSpawnArea(200, 0)
-			.ConfigureScaling(0, 0, 0, 0.5f, 1)
+			.ConfigureScaling(0, 0, 0, 0.1f, 0.5f)
 			.ConfigureRotation(0, 0, 0, 0, 360);
 
 		AddChild(dustCoulds);
