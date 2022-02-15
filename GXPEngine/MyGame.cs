@@ -37,6 +37,7 @@ public class MyGame : Game
 		player = new Player();
 		AddChild(player);
 		player.SetXY(game.width / 2, game.height / 2);
+		Globals.player = player;
 
 		stats = new EasyDraw(game.width, game.height, false);
 		AddChild(stats);

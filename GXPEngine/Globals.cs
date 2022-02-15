@@ -13,6 +13,6 @@ namespace GXPEngine
         public static float scrollSpeed = 1f;
         public static float bulletSpeed = 3f;
 
-
+        public static Player player;
     }
 }

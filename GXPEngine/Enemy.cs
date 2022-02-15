@@ -93,7 +93,7 @@ namespace GXPEngine
             amountShot++;
         }
 
-        public void StartShooting()
+        public virtual void StartShooting()
         {
             spreadDirection = random.Next(0, 2) == 0 ? 1 : -1;
 
