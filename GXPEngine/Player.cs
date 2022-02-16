@@ -72,7 +72,7 @@ namespace GXPEngine
         {
             float spread = MathUtils.Map((float)random.NextDouble(), 0, 1, -bulletSpread, bulletSpread);
             Bullet bullet = new Bullet(false, Vector2.UP.Rotated(spread, true) * Globals.bulletSpeed);
-            parent.AddChild(bullet);
+            Globals.bulletHolder.AddChild(bullet);
             bullet.SetXY(this.x, this.y);
 
         }

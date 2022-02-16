@@ -14,5 +14,6 @@ namespace GXPEngine
         public static float bulletSpeed = 3f;
 
         public static Player player;
+        public static Pivot bulletHolder;
     }
 }

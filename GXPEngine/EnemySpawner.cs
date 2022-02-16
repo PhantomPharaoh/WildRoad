@@ -83,7 +83,7 @@ namespace GXPEngine
                 
 
                 int spot = GetEmptySpot(enemies.Last());
-                Enemy enemy = new Enemy();
+                GrenadeLauncher enemy = new GrenadeLauncher();
                 enemies.Last()[spot] = enemy;
                 AddChild(enemy);
                 enemy.x = (spot - enemies.Last().Length/2f) * enemyHorizontalSeparation + enemyHorizontalSeparation/2f;
@@ -106,8 +106,11 @@ namespace GXPEngine
                         int randomRow = random.Next(0, enemies.Count);
                         if (enemies[randomRow][randomCol] != null)
                         {
-                            shooterInex = randomCol;
-                            rowIndex = randomRow;
+                            if (!enemies[randomRow][randomCol].shooting)
+                            {
+                                shooterInex = randomCol;
+                                rowIndex = randomRow;
+                            }
                         }
                     }
 

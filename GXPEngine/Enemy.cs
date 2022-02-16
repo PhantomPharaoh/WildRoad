@@ -12,6 +12,7 @@ namespace GXPEngine
         protected Vector2 shootDirection = Vector2.DOWN;
 
         public bool isDestroyed = false;
+        public bool shooting = false;
 
         protected int health = 100;
         protected float shootSpread = 5;
@@ -45,6 +46,7 @@ namespace GXPEngine
 
                     shotDelayTimer.Start();
                 }
+                else shooting = false;
             }
 
         }
@@ -86,8 +88,10 @@ namespace GXPEngine
         void Shoot()
         {
             Bullet bullet = new Bullet(true, shootDirection * Globals.bulletSpeed);
-            parent.AddChild(bullet);
-            bullet.SetXY(this.x, this.y);
+            Globals.bulletHolder.AddChild(bullet);
+            Vector2 globalBulletPos = TransformPoint(this.x, this.y);
+            bullet.SetXY(globalBulletPos.x, globalBulletPos.y);
+            
 
             shootDirection = shootDirection.Rotated(shootSpread * spreadDirection, true);
             amountShot++;
@@ -95,6 +99,7 @@ namespace GXPEngine
 
         public virtual void StartShooting()
         {
+            shooting = true;
             spreadDirection = random.Next(0, 2) == 0 ? 1 : -1;
 
             shootDirection = Vector2.DOWN;

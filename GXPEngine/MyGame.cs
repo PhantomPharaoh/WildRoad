@@ -39,6 +39,10 @@ public class MyGame : Game
 		player.SetXY(game.width / 2, game.height / 2);
 		Globals.player = player;
 
+		Pivot bulletHolder = new Pivot();
+		AddChild(bulletHolder);
+		Globals.bulletHolder = bulletHolder;
+
 		stats = new EasyDraw(game.width, game.height, false);
 		AddChild(stats);
 
