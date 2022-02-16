@@ -11,10 +11,10 @@ namespace GXPEngine
 
         public List<GameObject> collidedWith = new List<GameObject>();
 
-        public Obstacle() : base("circle.png")
+        public Obstacle(string texturePath) : base(texturePath, true, true)
         {
             SetOrigin(this.width/2, this.height/2);
-            SetScaleXY(0.4f, 0.4f);
+            SetScaleXY(0.07f, 0.07f);
         }
 
         public void Update()

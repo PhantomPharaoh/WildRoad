@@ -14,6 +14,8 @@ namespace GXPEngine
         Timer warningTimer;
         Sprite warning;
 
+        string[] obstacleTextures = { "cactus.png", "bones.png" };
+
         public ObstacleSpawner()
         {
             random = new Random();
@@ -43,7 +45,7 @@ namespace GXPEngine
 
             if (warningTimer.finishedThisFrame)
             {
-                Obstacle obstacle = new Obstacle();
+                Obstacle obstacle = new Obstacle(obstacleTextures[random.Next(obstacleTextures.Length)]);
                 AddChild(obstacle);
                 obstacle.x = warning.x;
                 obstacle.y = -100;
