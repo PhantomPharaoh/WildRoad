@@ -47,14 +47,13 @@ namespace GXPEngine
 
         protected void Shake(float delta)//call this every frame
         {
-            float appliedShake = shakiness;// * delta * 60;
-            visibleCar.x += MathUtils.Map((float)random.NextDouble(), 0, 1, -appliedShake, appliedShake);
-            visibleCar.y += MathUtils.Map((float)random.NextDouble(), 0, 1, -appliedShake, appliedShake);
+            visibleCar.x += MathUtils.Map((float)random.NextDouble(), 0, 1, -shakiness, shakiness);
+            visibleCar.y += MathUtils.Map((float)random.NextDouble(), 0, 1, -shakiness, shakiness);
 
             visibleCar.x = MathUtils.Lerp(visibleCar.x, 0, stiffness * delta * 60);
             visibleCar.y = MathUtils.Lerp(visibleCar.y, 0, stiffness * delta * 60);
 
-            visibleCar.rotation += MathUtils.Map((float)random.NextDouble(), 0, 1, -appliedShake, appliedShake);
+            visibleCar.rotation += MathUtils.Map((float)random.NextDouble(), 0, 1, -shakiness, shakiness);
             visibleCar.rotation = MathUtils.Lerp(visibleCar.rotation, 0, stiffness * delta * 60);
         }
 
@@ -62,6 +61,10 @@ namespace GXPEngine
         {
             if (doHitAnimation)
             {
+                visibleCar.x += MathUtils.Map((float)random.NextDouble(), 0, 1, -shakiness*10, shakiness*10);
+                visibleCar.y += MathUtils.Map((float)random.NextDouble(), 0, 1, -shakiness*10, shakiness*10);
+                visibleCar.rotation += MathUtils.Map((float)random.NextDouble(), 0, 1, -shakiness*10, shakiness*10);
+
                 hitIndicator.AddChild(new Tween(Tween.Property.alpha, 1, 0, 0.3f, Tween.Curves.EaseOut));
                 doHitAnimation = false;
             }
