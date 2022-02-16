@@ -13,7 +13,7 @@ namespace GXPEngine
         protected bool doHitAnimation = false;
         protected bool doEmitSparks = false;
         protected Vector2 sparksPosition = Vector2.ZERO;
-        public float shakiness = 1f;
+        public float shakiness = 0.7f;
         public float stiffness = 0.2f;
         protected Random random;
         Sprite hitIndicator;

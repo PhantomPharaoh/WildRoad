@@ -12,7 +12,7 @@ namespace GXPEngine
 
         Timer shootCooldownTimer;
 
-        public GrenadeLauncher() : base()
+        public GrenadeLauncher() : base("grenadelaunchercar.png", "square.png", "grenadecar_white.png", 3, 1, 3)
         {
             shootCooldownTimer = new Timer(2, false);
             AddChild(shootCooldownTimer);
@@ -31,6 +31,11 @@ namespace GXPEngine
         
         public void Update()
         {
+            Shake(Time.deltaTime / 1000f);
+            HitAnimation();
+            EmitSparks();
+            visibleCar.Animate();
+
             if (shootCooldownTimer.finishedThisFrame)
             {
                 shooting = false;

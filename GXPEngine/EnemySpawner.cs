@@ -84,7 +84,7 @@ namespace GXPEngine
                 if (!IsArrayFull(enemies.Last()))
                 {
                     int spot = GetEmptySpot(enemies.Last());
-                    Enemy enemy = new Enemy();
+                    GrenadeLauncher enemy = new GrenadeLauncher();
                     enemies.Last()[spot] = enemy;
                     AddChild(enemy);
                     enemy.x = (spot - enemies.Last().Length / 2f) * enemyHorizontalSeparation + enemyHorizontalSeparation / 2f;

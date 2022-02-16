@@ -19,7 +19,7 @@ namespace GXPEngine
 
         public Player() : base("player_sheet.png", "player_hitbox.png", "player_flash.png", 3, 1, 3)
         {
-            SetScaleXY(1.5f, 1.5f);
+            SetScaleXY(1.4f, 1.4f);
         }
 
         public void Update()
@@ -63,6 +63,16 @@ namespace GXPEngine
                 {
                     doHitAnimation = true;
                     (other as Obstacle).collidedWith.Add(this);
+                    playerHealth -= 10;
+                }
+            }
+
+            if (other is Explosion)
+            {
+                if (!(other as Explosion).hitPlayer)
+                {
+                    (other as Explosion).hitPlayer = true;
+                    doHitAnimation = true;
                     playerHealth -= 10;
                 }
             }

@@ -12,6 +12,7 @@ namespace GXPEngine
 
         Timer travelTimer;
         Sprite target;
+        Explosion explosion;
 
         public Grenade(Vector2 startPos, Vector2 targetPos, float travelTime) : base("circle.png", true, false)
         {
@@ -44,6 +45,12 @@ namespace GXPEngine
 
             if (travelTimer.finishedThisFrame)
             {
+                explosion = new Explosion();
+                Globals.bulletHolder.AddChild(explosion);
+                explosion.SetXY(target.x, target.y);
+
+
+
                 LateDestroy();
                 target.LateDestroy();
             }

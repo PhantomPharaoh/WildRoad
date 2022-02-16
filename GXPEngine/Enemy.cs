@@ -24,10 +24,10 @@ namespace GXPEngine
 
         Timer shotDelayTimer;
 
-        public Enemy() : base("car_2.png", "square.png", "player_flash.png", 1, 1, 1)
+        public Enemy(string texturePath, string hitboxPath, string flashPath, int col = 1, int row = 1, int frames = 1) : base(texturePath, hitboxPath, flashPath, col, row, frames)
         {
             SetOrigin(this.width / 2, this.height / 2);
-            SetScaleXY(1.3f, 1.3f);
+            SetScaleXY(1.4f, 1.4f);
             shotDelayTimer = new Timer(timeBetweenShots, false);
             AddChild(shotDelayTimer);
         }
@@ -37,6 +37,7 @@ namespace GXPEngine
             Shake(Time.deltaTime / 1000f);
             HitAnimation();
             EmitSparks();
+            visibleCar.Animate();
 
             if (shotDelayTimer.finishedThisFrame)
             {
