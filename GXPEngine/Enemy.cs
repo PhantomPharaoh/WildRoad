@@ -89,7 +89,7 @@ namespace GXPEngine
         {
             Bullet bullet = new Bullet(true, shootDirection * Globals.bulletSpeed);
             Globals.bulletHolder.AddChild(bullet);
-            Vector2 globalBulletPos = TransformPoint(this.x, this.y);
+            Vector2 globalBulletPos = TransformPoint(0, 0);
             bullet.SetXY(globalBulletPos.x, globalBulletPos.y);
             
 
