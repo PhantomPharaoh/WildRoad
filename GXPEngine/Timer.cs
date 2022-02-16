@@ -10,7 +10,7 @@ class Timer : GameObject
 	public bool isFinished = false;
 	public bool finishedThisFrame = false;
 	float waitTime;
-	bool going = false;
+	public bool going = false;
 
 	public Timer(float waitTime = 1, bool start = true)
 	{

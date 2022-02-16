@@ -22,7 +22,7 @@ namespace GXPEngine
         public Car(string texturePath, string hitboxPath, string hitIdicatorPath, int cols, int rows, int frames) : base(hitboxPath, true, true)
         {
             SetOrigin(this.width/2, this.height/2);
-            alpha = 0.5f;
+            alpha = 0f;
 
             random = new Random();
 

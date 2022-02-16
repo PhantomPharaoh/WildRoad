@@ -48,6 +48,7 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemySpawner.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="Grenade.cs" />
     <Compile Include="GrenadeLauncher.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />

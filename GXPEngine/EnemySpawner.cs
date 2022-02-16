@@ -101,7 +101,9 @@ namespace GXPEngine
                 {
                     int shooterInex = -1;
                     int rowIndex = 0;
-                    while (shooterInex == -1)
+
+                    int i;
+                    for (i = 0; i < 100 && shooterInex == -1; i++)
                     {
                         int randomCol = random.Next(0, enemies[0].Length);
                         int randomRow = random.Next(0, enemies.Count);
@@ -114,8 +116,7 @@ namespace GXPEngine
                             }
                         }
                     }
-
-                    enemies[rowIndex][shooterInex].StartShooting();
+                    if (i != 100) enemies[rowIndex][shooterInex].StartShooting();
 
                 }
 
