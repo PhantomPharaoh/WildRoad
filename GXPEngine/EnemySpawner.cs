@@ -14,8 +14,8 @@ namespace GXPEngine
         Timer shootTimer;
         Random random;
 
-        const float enemyHorizontalSeparation = 70f;
-        const float enemyVerticalSeparation = 80f;
+        const float enemyHorizontalSeparation = 75f;
+        const float enemyVerticalSeparation = 90f;
 
         public EnemySpawner()
         {
@@ -57,7 +57,7 @@ namespace GXPEngine
             if (spawnTimer.finishedThisFrame)
             {
                 //if all rows were empty and were removed, we add in a new empty one
-                if (enemies.Count == 0) enemies.Add(new Enemy[4]);
+                if (enemies.Count == 0) enemies.Add(new Enemy[5]);
 
                 if (IsArrayFull(enemies.Last()) && enemies.Count < 3)
                 {
@@ -78,13 +78,15 @@ namespace GXPEngine
                     }
 
 
-                    enemies.Add(new Enemy[4]);//if the last row if full, we add in a new empty one
+                    enemies.Add(new Enemy[5]);//if the last row if full, we add in a new empty one
                 }
                 
                 if (!IsArrayFull(enemies.Last()))
                 {
                     int spot = GetEmptySpot(enemies.Last());
-                    GrenadeLauncher enemy = new GrenadeLauncher();
+                    Enemy enemy;
+                    if (random.Next(2) == 0) enemy = new Enemy("car_2.png", "square.png", "player_flash.png");
+                    else enemy = new GrenadeLauncher();
                     enemies.Last()[spot] = enemy;
                     AddChild(enemy);
                     enemy.x = (spot - enemies.Last().Length / 2f) * enemyHorizontalSeparation + enemyHorizontalSeparation / 2f;
