@@ -44,6 +44,12 @@ public class MyGame : Game
 		stats = new EasyDraw(game.width, game.height, false);
 		AddChild(stats);
 
+		Sprite healthBarBackground = new Sprite("healthBarBackground.png", false, false);
+		AddChild(healthBarBackground);
+		healthBarBackground.SetXY(75, 717);
+		healthBarBackground.rotation = 180;
+		healthBarBackground.SetScaleXY(15, 85);
+
 		playerUnderHealthBar = new Sprite("underHealthBar.png", false, false);
 		AddChild(playerUnderHealthBar);
 		playerUnderHealthBar.SetXY(75, 717);
