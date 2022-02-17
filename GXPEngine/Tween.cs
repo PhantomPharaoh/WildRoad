@@ -8,7 +8,7 @@ class Tween : GameObject
 {
 
 	public enum Property { x, y, rotation, scale, alpha };
-	public enum Curves { Linear, EaseIn, EaseInBack, EaseOut, EaseOutBack, EaseInOut, EaseInOutBack, SinDamp, SinBounce }
+	public enum Curves { Linear, EaseIn, EaseInBack, EaseOut, EaseOutBack, EaseInOut, EaseInOutBack, SinDamp, SinBounce, ExpBounce }
 
 	Func<float, float> linear = x => x;
 	Func<float, float> easeIn = x => (float)Math.Pow(x, 3);
@@ -20,6 +20,7 @@ class Tween : GameObject
 	Func<float, float> sinDamp = x => (float)Math.Sin(Math.PI * 4 * x) * (1 - x);
 	//custom
 	Func<float, float> sinBounce = x => (float)Math.Sin(x * Math.PI);
+	Func<float, float> expBounce = x => x * (float)Math.Exp(x - 1) + (float)Math.Sin(x * 6 * Math.PI) * 0.1f;
 
 	private float targetValue;
 	private float initialValue;
@@ -68,6 +69,9 @@ class Tween : GameObject
 				break;
 			case Curves.SinBounce:
 				currentCurve = sinBounce;
+				break;
+			case Curves.ExpBounce:
+				currentCurve = expBounce;
 				break;
 		}
 

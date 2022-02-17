@@ -84,9 +84,13 @@ namespace GXPEngine
                 if (!IsArrayFull(enemies.Last()))
                 {
                     int spot = GetEmptySpot(enemies.Last());
+
                     Enemy enemy;
-                    if (random.Next(2) == 0) enemy = new Enemy("car_2.png", "square.png", "player_flash.png");
-                    else enemy = new GrenadeLauncher();
+                    int randomValue = random.Next(3);
+                    if (randomValue == 0) enemy = new Enemy("car_2.png", "square.png", "player_flash.png");
+                    else if (randomValue == 1) enemy = new GrenadeLauncher();
+                    else enemy = new RocketLauncher();
+
                     enemies.Last()[spot] = enemy;
                     AddChild(enemy);
                     enemy.x = (spot - enemies.Last().Length / 2f) * enemyHorizontalSeparation + enemyHorizontalSeparation / 2f;

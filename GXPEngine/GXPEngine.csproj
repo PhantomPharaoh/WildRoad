@@ -98,6 +98,8 @@
     <Compile Include="Particle.cs" />
     <Compile Include="ParticleEmitter.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="Rocket.cs" />
+    <Compile Include="RocketLauncher.cs" />
     <Compile Include="Timer.cs" />
     <Compile Include="Tween.cs" />
   </ItemGroup>

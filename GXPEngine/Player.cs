@@ -76,6 +76,15 @@ namespace GXPEngine
                     playerHealth -= 10;
                 }
             }
+
+            if (other is Rocket)
+            {
+                Explosion explosion = new Explosion();
+                Globals.bulletHolder.AddChild(explosion);
+                explosion.SetXY(other.x, other.y);
+                other.LateDestroy();
+            }
+
         }
 
         void Shoot()
