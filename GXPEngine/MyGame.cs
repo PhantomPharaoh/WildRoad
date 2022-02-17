@@ -12,7 +12,6 @@ public class MyGame : Game
 	ObstacleSpawner obstacleSpawner;
 	Sprite playerHeatlhBar;
 	Sprite playerUnderHealthBar;
-	ParticleEmitter dust;
 	EasyDraw ammoDisplay;
 	EasyDraw scoreDisplay;
 
@@ -36,19 +35,9 @@ public class MyGame : Game
 		AddChild(enemySpawner);
 		enemySpawner.SetXY(game.width / 2, game.height);
 
-		dust = new ParticleEmitter(
-			new string[] { "smoke_07.png" },
-			0, 0.02f, 0.04f)
-			.ConfigureGravity(Vector2.UP)
-			.ConfigureAlpha(1, -0.01f)
-			.ConfigureScaling(0.01f, 0.01f, 0, 0.1f, 0.2f)
-			.ConfigureMovement(0, 0, 1, 180, 0);
-		AddChild(dust);
-		//dust.Emit();
-
 		player = new Player();
 		AddChild(player);
-		player.SetXY(game.width / 2, game.height / 2);
+		player.SetXY(game.width / 2, game.height + 100);
 		Globals.player = player;
 
 		Pivot bulletHolder = new Pivot();
@@ -98,14 +87,16 @@ public class MyGame : Game
 	{
 		float delta = Time.deltaTime / 1000f;
 
-		Globals.score += delta * 6;
+		if (Globals.gameState == Globals.States.InsertCoin && Input.GetKeyDown(Key.SPACE))
+			StartGame();
+
+		if (Globals.gameState == Globals.States.InGame)
+			Globals.score += delta * 6;
 
 		road.AddOffset(0, -Globals.scrollSpeed * delta);
 
 		playerHeatlhBar.SetScaleXY(15, MathUtils.Map(player.playerHealth, 0, 100, 0, 85));
 		playerUnderHealthBar.SetScaleXY(playerHeatlhBar.scaleX, MathUtils.Lerp(playerUnderHealthBar.scaleY, playerHeatlhBar.scaleY, 0.05f * delta * 60));
-
-		dust.SetXY(player.x, player.y+50);
 
 		ammoDisplay.ClearTransparent();
 		ammoDisplay.Fill(Color.LightGreen);
@@ -117,6 +108,14 @@ public class MyGame : Game
 		scoreDisplay.TextSize(40);
 		scoreDisplay.Text(Math.Floor(Globals.score).ToString());
 	}
+
+	void StartGame()
+    {
+		Globals.gameState = Globals.States.InGame;
+		player.Start();
+		obstacleSpawner.Start();
+		enemySpawner.Start();
+    }
 
 	static void Main()
 	{

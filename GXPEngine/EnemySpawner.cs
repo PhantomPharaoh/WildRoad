@@ -20,12 +20,19 @@ namespace GXPEngine
         public EnemySpawner()
         {
             random = new Random();
-            spawnTimer = new Timer(1, true);
+            spawnTimer = new Timer(1, false);
             AddChild(spawnTimer);
-            shootTimer = new Timer(3, true);
+            shootTimer = new Timer(3, false);
             AddChild(shootTimer);
         }
 
+        public void Start()
+        {
+            spawnTimer.SetWaitTime(1);
+            spawnTimer.Start();
+            shootTimer.SetWaitTime(3);
+            shootTimer.Start();
+        }
 
         public void Update()
         {
@@ -98,7 +105,8 @@ namespace GXPEngine
                 }
                 
                 spawnTimer.SetWaitTime(random.Next(2, 10));
-                spawnTimer.Start();
+                if (Globals.gameState == Globals.States.InGame)
+                    spawnTimer.Start();
             }
 
             if (shootTimer.finishedThisFrame)
@@ -129,7 +137,8 @@ namespace GXPEngine
 
 
                 shootTimer.SetWaitTime(random.Next(1, 4));
-                shootTimer.Start();
+                if (Globals.gameState == Globals.States.InGame)
+                    shootTimer.Start();
             }
 
         }

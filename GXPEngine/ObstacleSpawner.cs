@@ -20,7 +20,7 @@ namespace GXPEngine
         public ObstacleSpawner()
         {
             random = new Random();
-            spawnTimer = new Timer(1, true);
+            spawnTimer = new Timer(1, false);
             AddChild(spawnTimer);
             warningTimer = new Timer(2, false);
             AddChild(warningTimer);
@@ -30,8 +30,16 @@ namespace GXPEngine
             warning.SetScaleXY(0.07f, 0.07f);
             warning.visible = false;
 
-            ammoSpawnTimer = new Timer(5, true);
+            ammoSpawnTimer = new Timer(5, false);
             AddChild(ammoSpawnTimer);
+        }
+
+        public void Start()
+        {
+            ammoSpawnTimer.SetWaitTime(5);
+            ammoSpawnTimer.Start();
+            spawnTimer.SetWaitTime(1);
+            spawnTimer.Start();
         }
 
         public void Update()
@@ -56,7 +64,8 @@ namespace GXPEngine
                 warning.visible = false;
 
                 spawnTimer.SetWaitTime(random.Next(2, 5));
-                spawnTimer.Start();
+                if (Globals.gameState == Globals.States.InGame)
+                    spawnTimer.Start();
             }
 
             if (ammoSpawnTimer.finishedThisFrame)
@@ -66,7 +75,8 @@ namespace GXPEngine
                 ammo.SetXY(MathUtils.Map((float)random.NextDouble(), 0, 1, game.width * 0.4f, game.width * 0.6f), -100);
 
                 ammoSpawnTimer.SetWaitTime(random.Next(5, 7));
-                ammoSpawnTimer.Start();
+                if (Globals.gameState == Globals.States.InGame)
+                    ammoSpawnTimer.Start();
             }
 
         }

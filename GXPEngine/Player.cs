@@ -40,35 +40,55 @@ namespace GXPEngine
             reloadSound = new Sound("reload.wav");
         }
 
+        public void Start()
+        {
+            playerHealth = 100;
+            playerAmmoCount = initialAmmoCount;
+            AddChild(new Tween(Tween.Property.y, game.height + 100, game.height / 2, 2, Tween.Curves.EaseInOut));
+            x = game.width / 2;
+        }
+
         public void Update()
         {
             float delta = Time.deltaTime / 1000f;
 
-            int inputDirection = 0;
-            if (Input.GetKey(Key.RIGHT)) inputDirection += 1;
-            if (Input.GetKey(Key.LEFT)) inputDirection -= 1;
-
-            x += inputDirection * steerSpeed * delta;
-
-            x = Mathf.Clamp(x, game.width*0.4f, game.width*0.6f);
-
-            Shake(delta);
-            visibleCar.Animate();
-
-            HitAnimation();
-            EmitSparks();
-
-            if (shootCooldownTimer.finishedThisFrame)
+            if (Globals.gameState == Globals.States.InGame)
             {
-                if (Input.GetKey(Key.DOWN)) Shoot();
-                shootCooldownTimer.Start();
+                if (playerHealth <= 0)
+                {
+                    Explosion explosion = new Explosion();
+                    Globals.bulletHolder.AddChild(explosion);
+                    explosion.SetXY(x, y);
+
+                    y = game.height + 100;
+                    Globals.gameState = Globals.States.InsertCoin;
+                }
+
+                int inputDirection = 0;
+                if (Input.GetKey(Key.RIGHT)) inputDirection += 1;
+                if (Input.GetKey(Key.LEFT)) inputDirection -= 1;
+
+                x += inputDirection * steerSpeed * delta;
+
+                x = Mathf.Clamp(x, game.width * 0.4f, game.width * 0.6f);
+
+                Shake(delta);
+                visibleCar.Animate();
+
+                HitAnimation();
+                EmitSparks();
+
+                if (shootCooldownTimer.finishedThisFrame)
+                {
+                    if (Input.GetKey(Key.DOWN)) Shoot();
+                    shootCooldownTimer.Start();
+                }
+
+                if (this.x > game.width / 2)
+                    dirtSound.Volume = MathUtils.Map(this.x, game.width / 2, game.width * 0.6f, 0.5f, 1);
+                else
+                    dirtSound.Volume = MathUtils.Map(this.x, game.width * 0.4f, game.width / 2, 1, 0.5f);
             }
-
-            if (this.x > game.width / 2)
-                dirtSound.Volume = MathUtils.Map(this.x, game.width / 2, game.width * 0.6f, 0.5f, 1);
-            else
-                dirtSound.Volume = MathUtils.Map(this.x, game.width * 0.4f, game.width / 2, 1, 0.5f);
-
         }
 
         public void OnCollision(GameObject other)
