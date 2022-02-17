@@ -13,6 +13,7 @@ public class MyGame : Game
 	Sprite playerHeatlhBar;
 	Sprite playerUnderHealthBar;
 	ParticleEmitter dust;
+	EasyDraw ammoDisplay;
 
 	SoundChannel music;
 
@@ -36,10 +37,13 @@ public class MyGame : Game
 
 		dust = new ParticleEmitter(
 			new string[] { "smoke_07.png" },
-			0, 0.1f, 0.2f)
-			.ConfigureGravity(Vector2.UP);
+			0, 0.02f, 0.04f)
+			.ConfigureGravity(Vector2.UP)
+			.ConfigureAlpha(1, -0.01f)
+			.ConfigureScaling(0.01f, 0.01f, 0, 0.1f, 0.2f)
+			.ConfigureMovement(0, 0, 1, 180, 0);
 		AddChild(dust);
-		dust.Emit();
+		//dust.Emit();
 
 		player = new Player();
 		AddChild(player);
@@ -75,6 +79,10 @@ public class MyGame : Game
 			});
 		AddChild(dashboard);
 
+		ammoDisplay = new EasyDraw(game.width, game.height, false);
+		AddChild(ammoDisplay);
+		ammoDisplay.SetXY(1210, -155);
+
 		music = new Sound("music.mp3", true, true).Play();
 		music.Volume = 0.15f;
 	}
@@ -89,7 +97,12 @@ public class MyGame : Game
 		playerHeatlhBar.SetScaleXY(15, MathUtils.Map(player.playerHealth, 0, 100, 0, 85));
 		playerUnderHealthBar.SetScaleXY(playerHeatlhBar.scaleX, MathUtils.Lerp(playerUnderHealthBar.scaleY, playerHeatlhBar.scaleY, 0.05f * delta * 60));
 
-		dust.SetXY(player.x, player.y);
+		dust.SetXY(player.x, player.y+50);
+
+		ammoDisplay.ClearTransparent();
+		ammoDisplay.Fill(Color.LightGreen);
+		ammoDisplay.TextSize(40);
+		ammoDisplay.Text(player.playerAmmoCount.ToString());
 	}
 
 	static void Main()

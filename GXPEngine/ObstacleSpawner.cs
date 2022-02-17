@@ -13,6 +13,7 @@ namespace GXPEngine
         Random random;
         Timer warningTimer;
         Sprite warning;
+        Timer ammoSpawnTimer;
 
         string[] obstacleTextures = { "cactus.png", "bones.png" };
 
@@ -28,6 +29,9 @@ namespace GXPEngine
             warning.SetOrigin(warning.width/2, 0);
             warning.SetScaleXY(0.07f, 0.07f);
             warning.visible = false;
+
+            ammoSpawnTimer = new Timer(5, true);
+            AddChild(ammoSpawnTimer);
         }
 
         public void Update()
@@ -55,7 +59,15 @@ namespace GXPEngine
                 spawnTimer.Start();
             }
 
+            if (ammoSpawnTimer.finishedThisFrame)
+            {
+                AmmoPickup ammo = new AmmoPickup();
+                AddChild(ammo);
+                ammo.SetXY(MathUtils.Map((float)random.NextDouble(), 0, 1, game.width * 0.4f, game.width * 0.6f), -100);
 
+                ammoSpawnTimer.SetWaitTime(random.Next(5, 7));
+                ammoSpawnTimer.Start();
+            }
 
         }
 

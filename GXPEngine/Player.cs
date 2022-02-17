@@ -12,8 +12,11 @@ namespace GXPEngine
 
         const float steerSpeed = 150f;
         const float bulletSpread = 5f;
+        const int initialAmmoCount = 20;
+        const int ammoPickupAmount = 20;
 
         public int playerHealth = 100;
+        public int playerAmmoCount = initialAmmoCount;
 
         Random random = new Random();
         Timer shootCooldownTimer;
@@ -111,15 +114,25 @@ namespace GXPEngine
                 }
             }
 
+            if (other is AmmoPickup)
+            {
+                other.LateDestroy();
+                playerAmmoCount += ammoPickupAmount;
+            }
         }
 
         void Shoot()
         {
-            float spread = MathUtils.Map((float)random.NextDouble(), 0, 1, -bulletSpread, bulletSpread);
-            Bullet bullet = new Bullet(false, Vector2.UP.Rotated(spread, true) * Globals.bulletSpeed);
-            Globals.bulletHolder.AddChild(bullet);
-            bullet.SetXY(this.x, this.y);
-            gunshotSound.Play();
+            if (playerAmmoCount > 0)
+            {
+                float spread = MathUtils.Map((float)random.NextDouble(), 0, 1, -bulletSpread, bulletSpread);
+                Bullet bullet = new Bullet(false, Vector2.UP.Rotated(spread, true) * Globals.bulletSpeed);
+                Globals.bulletHolder.AddChild(bullet);
+                bullet.SetXY(this.x, this.y);
+                gunshotSound.Play();
+                playerAmmoCount--;
+            }
+            
         }
 
     }
