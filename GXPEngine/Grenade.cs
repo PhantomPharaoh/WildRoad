@@ -51,8 +51,6 @@ namespace GXPEngine
                 Globals.bulletHolder.AddChild(explosion);
                 explosion.SetXY(target.x, target.y);
 
-
-
                 LateDestroy();
                 target.LateDestroy();
             }

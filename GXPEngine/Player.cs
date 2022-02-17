@@ -79,10 +79,10 @@ namespace GXPEngine
 
             if (other is Rocket)
             {
-                Explosion explosion = new Explosion();
-                Globals.bulletHolder.AddChild(explosion);
-                explosion.SetXY(other.x, other.y);
-                other.LateDestroy();
+                if (!(other as Rocket).collidedWithPlayer)
+                {
+                    (other as Rocket).collidedWithPlayer = true;
+                }
             }
 
         }

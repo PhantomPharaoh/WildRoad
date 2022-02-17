@@ -10,6 +10,7 @@ namespace GXPEngine
     internal class Rocket : AnimationSprite
     {
 
+        public bool collidedWithPlayer = false;
 
         public Rocket() : base("rocket.png", 3, 1, 3, true, true)
         {
@@ -25,6 +26,16 @@ namespace GXPEngine
             y -= 10 * delta * 60;
             if (y < -100)
             {
+                LateDestroy();
+            }
+
+            if (collidedWithPlayer)
+            {
+                Explosion explosion = new Explosion();
+                Globals.bulletHolder.AddChild(explosion);
+                explosion.SetXY(TransformPoint(0,0).x, TransformPoint(0,0).y);
+
+
                 LateDestroy();
             }
 
