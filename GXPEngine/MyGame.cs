@@ -13,6 +13,8 @@ public class MyGame : Game
 	Sprite playerHeatlhBar;
 	Sprite playerUnderHealthBar;
 
+	SoundChannel music;
+
 	public MyGame() : base(1366, 768, true)
 	{
 		road = new AdvancedSprite("road3.png",
@@ -64,6 +66,9 @@ public class MyGame : Game
 				game.width * 0.65f, game.height
 			});
 		AddChild(dashboard);
+
+		music = new Sound("music.mp3", true, true).Play();
+		music.Volume = 0.15f;
 	}
 
 
