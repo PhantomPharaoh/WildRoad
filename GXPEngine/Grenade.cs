@@ -21,6 +21,7 @@ namespace GXPEngine
             target.SetOrigin(target.width / 2, target.height / 2);
             target.SetScaleXY(0.1f, 0.1f);
             target.SetXY(Globals.player.x, Globals.player.y);
+            target.alpha = 0.5f;
 
 
             SetOrigin(this.width / 2, this.height / 2);

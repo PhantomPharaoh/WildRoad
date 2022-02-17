@@ -42,29 +42,28 @@ public class MyGame : Game
 
 		Sprite healthBarBackground = new Sprite("healthBarBackground.png", false, false);
 		AddChild(healthBarBackground);
-		healthBarBackground.SetXY(75, 717);
+		healthBarBackground.SetXY(962, 720);
 		healthBarBackground.rotation = 180;
 		healthBarBackground.SetScaleXY(15, 85);
 
 		playerUnderHealthBar = new Sprite("underHealthBar.png", false, false);
 		AddChild(playerUnderHealthBar);
-		playerUnderHealthBar.SetXY(75, 717);
+		playerUnderHealthBar.SetXY(healthBarBackground.x, healthBarBackground.y);
 		playerUnderHealthBar.rotation = 180;
 
 		playerHeatlhBar = new Sprite("healthBar.png", false, false);
 		AddChild(playerHeatlhBar);
-		playerHeatlhBar.SetXY(75, 717);
+		playerHeatlhBar.SetXY(healthBarBackground.x, healthBarBackground.y);
 		playerHeatlhBar.rotation = 180;
 
 		AdvancedSprite dashboard = new AdvancedSprite("dashboard.png",
 			new float[8]{
-				0, game.height * 0.65f,
-				game.width * 0.35f, game.height * 0.65f,
-				game.width * 0.35f, game.height,
-				0, game.height
+				game.width * 0.65f, game.height * 0.65f,
+				game.width, game.height * 0.65f,
+				game.width, game.height,
+				game.width * 0.65f, game.height
 			});
 		AddChild(dashboard);
-
 	}
 
 
