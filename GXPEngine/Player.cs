@@ -20,6 +20,7 @@ namespace GXPEngine
 
         SoundChannel engineSound;
         SoundChannel dirtSound;
+        Sound gunshotSound;
 
         public Player() : base("player_sheet.png", "player_hitbox.png", "player_flash.png", 3, 1, 3)
         {
@@ -29,6 +30,7 @@ namespace GXPEngine
 
             engineSound = new Sound("engine.wav", true, false).Play();
             dirtSound = new Sound("dirt.wav", true, false).Play();
+            gunshotSound = new Sound("gunshot2.wav");
         }
 
         public void Update()
@@ -114,7 +116,7 @@ namespace GXPEngine
             Bullet bullet = new Bullet(false, Vector2.UP.Rotated(spread, true) * Globals.bulletSpeed);
             Globals.bulletHolder.AddChild(bullet);
             bullet.SetXY(this.x, this.y);
-
+            gunshotSound.Play();
         }
 
     }

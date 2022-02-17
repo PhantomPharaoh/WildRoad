@@ -87,7 +87,7 @@ namespace GXPEngine
 
                     Enemy enemy;
                     int randomValue = random.Next(3);
-                    if (randomValue == 0) enemy = new Enemy("car_2.png", "enemy_hitbox.png", "player_flash.png");
+                    if (randomValue == 0) enemy = new Enemy("basicenemy.png", "enemy_hitbox.png", "basicenemy_white.png", 3, 1, 3);
                     else if (randomValue == 1) enemy = new GrenadeLauncher();
                     else enemy = new RocketLauncher();
 

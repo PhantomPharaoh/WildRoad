@@ -40,6 +40,15 @@ namespace GXPEngine
             {
                 shooting = false;
             }
+
+            if (isDestroyed)
+            {
+                Explosion deathExplosion = new Explosion();
+                Globals.bulletHolder.AddChild(deathExplosion);
+                deathExplosion.SetXY(TransformPoint(0, 0).x, TransformPoint(0, 0).y);
+
+                LateDestroy();
+            }
         }
 
 

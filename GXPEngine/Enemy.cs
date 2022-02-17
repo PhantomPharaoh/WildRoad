@@ -24,12 +24,15 @@ namespace GXPEngine
 
         Timer shotDelayTimer;
 
+        Sound gunshotSound;
+
         public Enemy(string texturePath, string hitboxPath, string flashPath, int col = 1, int row = 1, int frames = 1) : base(texturePath, hitboxPath, flashPath, col, row, frames)
         {
             SetOrigin(this.width / 2, this.height / 2);
             SetScaleXY(1.4f, 1.4f);
             shotDelayTimer = new Timer(timeBetweenShots, false);
             AddChild(shotDelayTimer);
+            gunshotSound = new Sound("gunshot2.wav");
         }
 
         public void Update()
@@ -50,6 +53,16 @@ namespace GXPEngine
                 else shooting = false;
             }
 
+            if (isDestroyed)
+            {
+                Explosion deathExplosion = new Explosion();
+                Globals.bulletHolder.AddChild(deathExplosion);
+                deathExplosion.SetXY(TransformPoint(0,0).x, TransformPoint(0,0).y);
+
+                LateDestroy();
+            }
+
+
         }
 
         public void OnCollision(GameObject other)
@@ -66,7 +79,6 @@ namespace GXPEngine
                     if (health <= 0) 
                     {
                         isDestroyed = true;
-                        LateDestroy();
                     }
                     bulletHitSound.Play();
                 }
@@ -80,7 +92,6 @@ namespace GXPEngine
                     if (health <= 0)
                     {
                         isDestroyed = true;
-                        LateDestroy();
                     }
                     (other as Obstacle).collidedWith.Add(this);
                 }
@@ -93,7 +104,7 @@ namespace GXPEngine
             Globals.bulletHolder.AddChild(bullet);
             Vector2 globalBulletPos = TransformPoint(0, 0);
             bullet.SetXY(globalBulletPos.x, globalBulletPos.y);
-            
+            gunshotSound.Play();
 
             shootDirection = shootDirection.Rotated(shootSpread * spreadDirection, true);
             amountShot++;
