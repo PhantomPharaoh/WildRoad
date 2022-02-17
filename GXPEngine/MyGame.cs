@@ -14,6 +14,7 @@ public class MyGame : Game
 	Sprite playerUnderHealthBar;
 	ParticleEmitter dust;
 	EasyDraw ammoDisplay;
+	EasyDraw scoreDisplay;
 
 	SoundChannel music;
 
@@ -81,7 +82,12 @@ public class MyGame : Game
 
 		ammoDisplay = new EasyDraw(game.width, game.height, false);
 		AddChild(ammoDisplay);
-		ammoDisplay.SetXY(1210, -155);
+		ammoDisplay.SetXY(1200, -155);
+
+		scoreDisplay = new EasyDraw(game.width, game.height, false);
+		AddChild(scoreDisplay);
+		scoreDisplay.SetXY(495, 300);
+		scoreDisplay.TextAlign(CenterMode.Center, CenterMode.Center);
 
 		music = new Sound("music.mp3", true, true).Play();
 		music.Volume = 0.15f;
@@ -91,6 +97,8 @@ public class MyGame : Game
 	void Update()
 	{
 		float delta = Time.deltaTime / 1000f;
+
+		Globals.score += delta * 6;
 
 		road.AddOffset(0, -Globals.scrollSpeed * delta);
 
@@ -103,6 +111,11 @@ public class MyGame : Game
 		ammoDisplay.Fill(Color.LightGreen);
 		ammoDisplay.TextSize(40);
 		ammoDisplay.Text(player.playerAmmoCount.ToString());
+
+		scoreDisplay.ClearTransparent();
+		scoreDisplay.Fill(Color.LightGreen);
+		scoreDisplay.TextSize(40);
+		scoreDisplay.Text(Math.Floor(Globals.score).ToString());
 	}
 
 	static void Main()

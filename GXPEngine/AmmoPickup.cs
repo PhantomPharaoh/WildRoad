@@ -9,10 +9,11 @@ namespace GXPEngine
 {
     internal class AmmoPickup : Sprite
     {
-        public AmmoPickup() : base("circle.png", true, true)
+
+        public AmmoPickup() : base("ammo.png", true, true)
         {
             SetOrigin(this.width / 2, this.height / 2);
-            SetScaleXY(0.3f, 0.3f);
+            SetScaleXY(0.04f, 0.04f);
         }
 
         public void Update()

@@ -8,7 +8,7 @@ namespace GXPEngine
 {
     internal static class Globals
     {
-        public static int score = 0;
+        public static float score = 0;
         public static int difficulty = 0;
         public static float scrollSpeed = 1f;
         public static float bulletSpeed = 3f;

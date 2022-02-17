@@ -25,6 +25,7 @@ namespace GXPEngine
         SoundChannel dirtSound;
         Sound gunshotSound;
         Sound impactSound;
+        Sound reloadSound;
 
         public Player() : base("player_sheet.png", "player_hitbox.png", "player_flash.png", 3, 1, 3)
         {
@@ -36,6 +37,7 @@ namespace GXPEngine
             dirtSound = new Sound("dirt.wav", true, false).Play();
             gunshotSound = new Sound("gunshot2.wav");
             impactSound = new Sound("impact.wav");
+            reloadSound = new Sound("reload.wav");
         }
 
         public void Update()
@@ -118,6 +120,7 @@ namespace GXPEngine
             {
                 other.LateDestroy();
                 playerAmmoCount += ammoPickupAmount;
+                reloadSound.Play();
             }
         }
 

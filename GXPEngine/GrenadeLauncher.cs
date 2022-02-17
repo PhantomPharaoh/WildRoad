@@ -46,6 +46,7 @@ namespace GXPEngine
                 Explosion deathExplosion = new Explosion();
                 Globals.bulletHolder.AddChild(deathExplosion);
                 deathExplosion.SetXY(TransformPoint(0, 0).x, TransformPoint(0, 0).y);
+                Globals.score += 40;
 
                 LateDestroy();
             }
