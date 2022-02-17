@@ -26,7 +26,7 @@ namespace GXPEngine
             warning = new Sprite("warning.png", false, false);
             AddChild(warning);
             warning.SetOrigin(warning.width/2, 0);
-            warning.SetScaleXY(0.15f, 0.15f);
+            warning.SetScaleXY(0.07f, 0.07f);
             warning.visible = false;
         }
 

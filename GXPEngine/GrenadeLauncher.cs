@@ -12,7 +12,7 @@ namespace GXPEngine
 
         Timer shootCooldownTimer;
 
-        public GrenadeLauncher() : base("grenadelaunchercar.png", "square.png", "grenadecar_white.png", 3, 1, 3)
+        public GrenadeLauncher() : base("grenadelaunchercar.png", "player_hitbox.png", "grenadecar_white.png", 3, 1, 3)
         {
             shootCooldownTimer = new Timer(2, false);
             AddChild(shootCooldownTimer);

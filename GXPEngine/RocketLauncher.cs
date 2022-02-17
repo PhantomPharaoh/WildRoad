@@ -13,7 +13,7 @@ namespace GXPEngine
         Timer shootCooldownTimer;
         Sprite shootIndicator;
 
-        public RocketLauncher() : base("rocketlaunchercar.png", "square.png", "rocketcar_white.png", 3, 1, 3)
+        public RocketLauncher() : base("rocketlaunchercar.png", "player_hitbox.png", "rocketcar_white.png", 3, 1, 3)
         {
             shootCooldownTimer = new Timer(3.1f, false);
             AddChild(shootCooldownTimer);
@@ -29,7 +29,7 @@ namespace GXPEngine
             shooting = true;
 
             shootIndicator.alpha = 0;
-            shootIndicator.AddChild(new Tween(Tween.Property.scale, 0, 10, 3f, Tween.Curves.ExpBounce));
+            shootIndicator.AddChild(new Tween(Tween.Property.scale, 1, 8, 3f, Tween.Curves.ExpBounce));
             shootIndicator.AddChild(new Tween(Tween.Property.alpha, 0, 1, 3f, Tween.Curves.SinDamp));
 
             shootCooldownTimer.Start();
