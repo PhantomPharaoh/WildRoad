@@ -12,6 +12,7 @@ public class MyGame : Game
 	ObstacleSpawner obstacleSpawner;
 	Sprite playerHeatlhBar;
 	Sprite playerUnderHealthBar;
+	ParticleEmitter dust;
 
 	SoundChannel music;
 
@@ -32,6 +33,13 @@ public class MyGame : Game
 		enemySpawner = new EnemySpawner();
 		AddChild(enemySpawner);
 		enemySpawner.SetXY(game.width / 2, game.height);
+
+		dust = new ParticleEmitter(
+			new string[] { "smoke_07.png" },
+			0, 0.1f, 0.2f)
+			.ConfigureGravity(Vector2.UP);
+		AddChild(dust);
+		dust.Emit();
 
 		player = new Player();
 		AddChild(player);
@@ -80,6 +88,8 @@ public class MyGame : Game
 
 		playerHeatlhBar.SetScaleXY(15, MathUtils.Map(player.playerHealth, 0, 100, 0, 85));
 		playerUnderHealthBar.SetScaleXY(playerHeatlhBar.scaleX, MathUtils.Lerp(playerUnderHealthBar.scaleY, playerHeatlhBar.scaleY, 0.05f * delta * 60));
+
+		dust.SetXY(player.x, player.y);
 	}
 
 	static void Main()

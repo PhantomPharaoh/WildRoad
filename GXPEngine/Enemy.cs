@@ -25,6 +25,7 @@ namespace GXPEngine
         Timer shotDelayTimer;
 
         Sound gunshotSound;
+        Sound impactSound;
 
         public Enemy(string texturePath, string hitboxPath, string flashPath, int col = 1, int row = 1, int frames = 1) : base(texturePath, hitboxPath, flashPath, col, row, frames)
         {
@@ -33,6 +34,7 @@ namespace GXPEngine
             shotDelayTimer = new Timer(timeBetweenShots, false);
             AddChild(shotDelayTimer);
             gunshotSound = new Sound("gunshot2.wav");
+            impactSound = new Sound("impact.wav");
         }
 
         public void Update()
@@ -72,8 +74,8 @@ namespace GXPEngine
                 if (!(other as Bullet).isEnemyBullet)
                 {
                     doHitAnimation = true;
-                    //doEmitSparks = true;
-                    //sparksPosition = new Vector2(other.x - this.x, other.y - this.y);
+                    doEmitSparks = true;
+                    sparksPosition = new Vector2(other.x, other.y) - TransformPoint(0,0);
                     other.LateDestroy();
                     health -= 10;
                     if (health <= 0) 
@@ -89,6 +91,7 @@ namespace GXPEngine
                 {
                     doHitAnimation = true;
                     health -= 5;
+                    impactSound.Play();
                     if (health <= 0)
                     {
                         isDestroyed = true;

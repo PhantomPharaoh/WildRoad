@@ -21,6 +21,7 @@ namespace GXPEngine
         SoundChannel engineSound;
         SoundChannel dirtSound;
         Sound gunshotSound;
+        Sound impactSound;
 
         public Player() : base("player_sheet.png", "player_hitbox.png", "player_flash.png", 3, 1, 3)
         {
@@ -31,6 +32,7 @@ namespace GXPEngine
             engineSound = new Sound("engine.wav", true, false).Play();
             dirtSound = new Sound("dirt.wav", true, false).Play();
             gunshotSound = new Sound("gunshot2.wav");
+            impactSound = new Sound("impact.wav");
         }
 
         public void Update()
@@ -72,7 +74,7 @@ namespace GXPEngine
                 {
                     other.LateDestroy();
                     doHitAnimation = true;
-                    sparksPosition = new Vector2(other.parent.x + other.x - this.x, other.parent.y + other.y - this.y);
+                    sparksPosition = new Vector2(other.x - this.x, other.y - this.y);
                     doEmitSparks = true;
                     playerHealth -= 10;
                     
@@ -87,6 +89,7 @@ namespace GXPEngine
                     doHitAnimation = true;
                     (other as Obstacle).collidedWith.Add(this);
                     playerHealth -= 10;
+                    impactSound.Play();
                 }
             }
 

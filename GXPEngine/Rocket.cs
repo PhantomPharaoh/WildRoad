@@ -12,10 +12,14 @@ namespace GXPEngine
 
         public bool collidedWithPlayer = false;
 
+        Sound rocketSound;
+
         public Rocket() : base("rocket.png", 3, 1, 3, true, true)
         {
             SetOrigin(this.width / 2, this.height / 2);
             SetScaleXY(2, 2);
+            rocketSound = new Sound("rocket_launch_4.wav");
+            rocketSound.Play();
         }
 
         public void Update()
