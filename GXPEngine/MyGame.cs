@@ -34,6 +34,7 @@ public class MyGame : Game
 		enemySpawner = new EnemySpawner();
 		AddChild(enemySpawner);
 		enemySpawner.SetXY(game.width / 2, game.height);
+		Globals.enemySpawner = enemySpawner;
 
 		player = new Player();
 		AddChild(player);
@@ -115,6 +116,7 @@ public class MyGame : Game
 		player.Start();
 		obstacleSpawner.Start();
 		enemySpawner.Start();
+		Globals.score = 0;
     }
 
 	static void Main()

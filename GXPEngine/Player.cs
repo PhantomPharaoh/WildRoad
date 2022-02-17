@@ -62,6 +62,7 @@ namespace GXPEngine
 
                     y = game.height + 100;
                     Globals.gameState = Globals.States.InsertCoin;
+                    Globals.enemySpawner.DestroyAllEnemies();
                 }
 
                 int inputDirection = 0;
@@ -78,16 +79,15 @@ namespace GXPEngine
                 HitAnimation();
                 EmitSparks();
 
-                if (shootCooldownTimer.finishedThisFrame)
-                {
-                    if (Input.GetKey(Key.DOWN)) Shoot();
-                    shootCooldownTimer.Start();
-                }
-
                 if (this.x > game.width / 2)
                     dirtSound.Volume = MathUtils.Map(this.x, game.width / 2, game.width * 0.6f, 0.5f, 1);
                 else
                     dirtSound.Volume = MathUtils.Map(this.x, game.width * 0.4f, game.width / 2, 1, 0.5f);
+            }
+            if (shootCooldownTimer.finishedThisFrame)
+            {
+                if (Input.GetKey(Key.DOWN)) Shoot();
+                shootCooldownTimer.Start();
             }
         }
 
@@ -146,7 +146,7 @@ namespace GXPEngine
 
         void Shoot()
         {
-            if (playerAmmoCount > 0)
+            if (playerAmmoCount > 0 && Globals.gameState == Globals.States.InGame)
             {
                 float spread = MathUtils.Map((float)random.NextDouble(), 0, 1, -bulletSpread, bulletSpread);
                 Bullet bullet = new Bullet(false, Vector2.UP.Rotated(spread, true) * Globals.bulletSpeed);

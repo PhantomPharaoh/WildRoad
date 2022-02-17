@@ -20,6 +20,7 @@ namespace GXPEngine
 
         public static Player player;
         public static Pivot bulletHolder;
+        public static EnemySpawner enemySpawner;
 
         public static States gameState = States.InsertCoin;
     }

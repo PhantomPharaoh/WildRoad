@@ -61,7 +61,7 @@ namespace GXPEngine
             }
 
 
-            if (spawnTimer.finishedThisFrame)
+            if (spawnTimer.finishedThisFrame && Globals.gameState == Globals.States.InGame)
             {
                 //if all rows were empty and were removed, we add in a new empty one
                 if (enemies.Count == 0) enemies.Add(new Enemy[5]);
@@ -105,11 +105,10 @@ namespace GXPEngine
                 }
                 
                 spawnTimer.SetWaitTime(random.Next(2, 10));
-                if (Globals.gameState == Globals.States.InGame)
-                    spawnTimer.Start();
+                spawnTimer.Start();
             }
 
-            if (shootTimer.finishedThisFrame)
+            if (shootTimer.finishedThisFrame && Globals.gameState == Globals.States.InGame)
             {
                 if (enemies.Count > 0)
                 {
@@ -137,10 +136,23 @@ namespace GXPEngine
 
 
                 shootTimer.SetWaitTime(random.Next(1, 4));
-                if (Globals.gameState == Globals.States.InGame)
-                    shootTimer.Start();
+                shootTimer.Start();
             }
 
+        }
+
+        public void DestroyAllEnemies()
+        {
+            foreach (Enemy[] row in enemies)//all rows go up
+            {
+                for (int i = 0; i < row.Length; i++)
+                {
+                    if (row[i] != null)
+                    {
+                        row[i].isDestroyed = true;
+                    }
+                }
+            }
         }
 
         bool IsArrayEmpty(Enemy[] array)
