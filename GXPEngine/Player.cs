@@ -18,11 +18,14 @@ namespace GXPEngine
         Random random = new Random();
         Timer shootCooldownTimer;
 
+
         public Player() : base("player_sheet.png", "player_hitbox.png", "player_flash.png", 3, 1, 3)
         {
             SetScaleXY(1.4f, 1.4f);
             shootCooldownTimer = new Timer(0.15f, true);
             AddChild(shootCooldownTimer);
+
+            
         }
 
         public void Update()
@@ -61,6 +64,8 @@ namespace GXPEngine
                     sparksPosition = new Vector2(other.parent.x + other.x - this.x, other.parent.y + other.y - this.y);
                     doEmitSparks = true;
                     playerHealth -= 10;
+                    
+                    bulletHitSound.Play();
                 }
             }
 

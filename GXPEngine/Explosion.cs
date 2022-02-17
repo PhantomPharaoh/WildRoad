@@ -13,11 +13,15 @@ namespace GXPEngine
         Timer explosionTimer;
         public bool hitPlayer = false;
 
+        Sound explosionSound;
+
         public Explosion() : base("explosion.png", 3, 3, 8, true, true)
         {
             SetOrigin(this.width/2, this.height/2);
             explosionTimer = new Timer(0.5f, true);
             AddChild(explosionTimer);
+            explosionSound = new Sound("explosion.wav");
+            explosionSound.Play();
         }
 
         public void Update()

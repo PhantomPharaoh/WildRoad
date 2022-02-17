@@ -19,6 +19,8 @@ namespace GXPEngine
         Sprite hitIndicator;
         ParticleEmitter sparks;
 
+        protected Sound bulletHitSound;
+
         public Car(string texturePath, string hitboxPath, string hitIdicatorPath, int cols, int rows, int frames) : base(hitboxPath, true, true)
         {
             SetOrigin(this.width/2, this.height/2);
@@ -43,6 +45,9 @@ namespace GXPEngine
                 .ConfigureScaling(0, 0, 0, 0.3f, 0.3f)
                 .ConfigureLifeTime(2f, 2f);
             AddChild(sparks);
+
+            bulletHitSound = new Sound("clink3.wav");
+
         }
 
         protected void Shake(float delta)//call this every frame

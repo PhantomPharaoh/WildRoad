@@ -68,6 +68,7 @@ namespace GXPEngine
                         isDestroyed = true;
                         LateDestroy();
                     }
+                    bulletHitSound.Play();
                 }
             }
             if (other is Obstacle)

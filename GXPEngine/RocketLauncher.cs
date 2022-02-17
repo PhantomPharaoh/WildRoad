@@ -13,7 +13,7 @@ namespace GXPEngine
         Timer shootCooldownTimer;
         Sprite shootIndicator;
 
-        public RocketLauncher() : base("rocketlaunchercar.png", "player_hitbox.png", "rocketcar_white.png", 3, 1, 3)
+        public RocketLauncher() : base("rocketlaunchercar.png", "enemy_hitbox.png", "rocketcar_white.png", 3, 1, 3)
         {
             shootCooldownTimer = new Timer(3.1f, false);
             AddChild(shootCooldownTimer);
