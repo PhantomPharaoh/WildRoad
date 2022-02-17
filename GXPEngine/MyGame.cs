@@ -10,7 +10,6 @@ public class MyGame : Game
 	Player player;
 	EnemySpawner enemySpawner;
 	ObstacleSpawner obstacleSpawner;
-	EasyDraw stats;
 	Sprite playerHeatlhBar;
 	Sprite playerUnderHealthBar;
 
@@ -40,9 +39,6 @@ public class MyGame : Game
 		Pivot bulletHolder = new Pivot();
 		AddChild(bulletHolder);
 		Globals.bulletHolder = bulletHolder;
-
-		stats = new EasyDraw(game.width, game.height, false);
-		AddChild(stats);
 
 		Sprite healthBarBackground = new Sprite("healthBarBackground.png", false, false);
 		AddChild(healthBarBackground);
@@ -77,9 +73,6 @@ public class MyGame : Game
 		float delta = Time.deltaTime / 1000f;
 
 		road.AddOffset(0, -Globals.scrollSpeed * delta);
-
-		stats.ClearTransparent();
-		stats.Text($"FPS:{currentFps}\n{GetDiagnostics()}");
 
 		playerHeatlhBar.SetScaleXY(15, MathUtils.Map(player.playerHealth, 0, 100, 0, 85));
 		playerUnderHealthBar.SetScaleXY(playerHeatlhBar.scaleX, MathUtils.Lerp(playerUnderHealthBar.scaleY, playerHeatlhBar.scaleY, 0.05f * delta * 60));

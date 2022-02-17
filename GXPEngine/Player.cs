@@ -16,10 +16,13 @@ namespace GXPEngine
         public int playerHealth = 100;
 
         Random random = new Random();
+        Timer shootCooldownTimer;
 
         public Player() : base("player_sheet.png", "player_hitbox.png", "player_flash.png", 3, 1, 3)
         {
             SetScaleXY(1.4f, 1.4f);
+            shootCooldownTimer = new Timer(0.15f, true);
+            AddChild(shootCooldownTimer);
         }
 
         public void Update()
@@ -37,10 +40,14 @@ namespace GXPEngine
             Shake(delta);
             visibleCar.Animate();
 
-            if (Input.GetKeyDown(Key.DOWN)) Shoot();
-
             HitAnimation();
             EmitSparks();
+
+            if (shootCooldownTimer.finishedThisFrame)
+            {
+                if (Input.GetKey(Key.DOWN)) Shoot();
+                shootCooldownTimer.Start();
+            }
         }
 
         public void OnCollision(GameObject other)

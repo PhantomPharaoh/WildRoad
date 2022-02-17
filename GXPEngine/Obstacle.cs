@@ -14,7 +14,7 @@ namespace GXPEngine
         public Obstacle(string texturePath) : base(texturePath, true, true)
         {
             SetOrigin(this.width/2, this.height/2);
-            SetScaleXY(0.07f, 0.07f);
+            SetScaleXY(0.06f, 0.06f);
         }
 
         public void Update()
