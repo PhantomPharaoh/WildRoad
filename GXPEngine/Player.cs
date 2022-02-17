@@ -18,6 +18,8 @@ namespace GXPEngine
         Random random = new Random();
         Timer shootCooldownTimer;
 
+        SoundChannel engineSound;
+        SoundChannel dirtSound;
 
         public Player() : base("player_sheet.png", "player_hitbox.png", "player_flash.png", 3, 1, 3)
         {
@@ -25,7 +27,8 @@ namespace GXPEngine
             shootCooldownTimer = new Timer(0.15f, true);
             AddChild(shootCooldownTimer);
 
-            
+            engineSound = new Sound("engine.wav", true, false).Play();
+            dirtSound = new Sound("dirt.wav", true, false).Play();
         }
 
         public void Update()
@@ -51,6 +54,12 @@ namespace GXPEngine
                 if (Input.GetKey(Key.DOWN)) Shoot();
                 shootCooldownTimer.Start();
             }
+
+            if (this.x > game.width / 2)
+                dirtSound.Volume = MathUtils.Map(this.x, game.width / 2, game.width * 0.6f, 0.5f, 1);
+            else
+                dirtSound.Volume = MathUtils.Map(this.x, game.width * 0.4f, game.width / 2, 1, 0.5f);
+
         }
 
         public void OnCollision(GameObject other)
