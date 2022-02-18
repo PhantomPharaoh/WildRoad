@@ -63,6 +63,7 @@ namespace GXPEngine
                     y = game.height + 100;
                     Globals.gameState = Globals.States.InsertCoin;
                     Globals.enemySpawner.DestroyAllEnemies();
+                    Globals.inserCoinDisplay.visible = true;
                 }
 
                 int inputDirection = 0;

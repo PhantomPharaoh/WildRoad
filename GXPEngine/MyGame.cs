@@ -14,6 +14,7 @@ public class MyGame : Game
 	Sprite playerUnderHealthBar;
 	EasyDraw ammoDisplay;
 	EasyDraw scoreDisplay;
+	EasyDraw insertCoinDisplay;
 
 	SoundChannel music;
 
@@ -79,6 +80,14 @@ public class MyGame : Game
 		scoreDisplay.SetXY(495, 300);
 		scoreDisplay.TextAlign(CenterMode.Center, CenterMode.Center);
 
+		insertCoinDisplay = new EasyDraw(game.width, game.height, false);
+		AddChild(insertCoinDisplay);
+		Globals.inserCoinDisplay = insertCoinDisplay;
+		insertCoinDisplay.TextAlign(CenterMode.Center, CenterMode.Center);
+		insertCoinDisplay.Fill(Color.Black);
+		insertCoinDisplay.TextSize(40);
+		insertCoinDisplay.Text("insert coin to start");
+
 		music = new Sound("music.mp3", true, true).Play();
 		music.Volume = 0.15f;
 	}
@@ -117,6 +126,7 @@ public class MyGame : Game
 		obstacleSpawner.Start();
 		enemySpawner.Start();
 		Globals.score = 0;
+		insertCoinDisplay.visible = false;
     }
 
 	static void Main()
